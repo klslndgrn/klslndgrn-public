@@ -1,6 +1,10 @@
 """This is a template that can be used when working with XML files"""
 
-# TODO: Add ".find()", ".findall()", ".remove()"
+# TODO: 
+#   Add:
+#       .find()
+#       .findall()
+#       .remove()
 
 # Required library to be included.
 import xml.etree.ElementTree as ET
