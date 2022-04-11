@@ -70,5 +70,3 @@ for n,twok in enumerate(root.iter('publish_date')):
     if '2001' in twok.text: 
         books2001.append(booktitles[n])
 print(books2001)
-
-
