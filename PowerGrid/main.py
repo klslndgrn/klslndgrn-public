@@ -2,7 +2,7 @@
 
 # Needed Libaries
 import xmlread as xr
-# import gridcreator as gc
+import gridcreator as gc
 # import grid
 # import psclasses as psc
 # import ceclasses as cec
@@ -56,12 +56,17 @@ ce_data = xr.conducting_equipment_data(root)
 print('Conduction Equipment Data = ')
 print(ce_data)
 
+# ALL DATA ----------------------------------------- #
+all_data = xr.all_data(root)
+print('All Data = ')
+print(all_data)
 
 # --------------------------------------------------------------------------- #
 # ------------------------ CREATING THE GRID -------------------------------- #
 # --------------------------------------------------------------------------- #
 
-# net = gc.grid_initializer
-# busbar = busbar_data[0]
-# print(busbar)
-# bus = grid.create_bus(net, busbar)
+net = gc.grid_initializer
+
+curr = gc.find_initial()
+
+initial = gc.find_next(curr, cn_data)

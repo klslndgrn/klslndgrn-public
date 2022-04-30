@@ -1,5 +1,4 @@
 import grid
-import xmlread as xr
 
 
 def grid_initializer():
@@ -7,7 +6,13 @@ def grid_initializer():
     return(net)
 
 
-def find_next(curr, prev, root):
+def find_initial():
+    # Find initial TE that has Processed = False
+    # to stand as an initial
+    pass
+
+
+def find_next(curr, cn_data, prev=None):
 
     curr_type = curr.Type
     prev_type = prev.Type
@@ -20,7 +25,6 @@ def find_next(curr, prev, root):
     elif curr_type == 'Te' and prev_type == 'CE':
         next_node = 'CN'
 
-        cn_data = xr.connectivity_node_data(root)
         for node in cn_data:
             if node.Processed is False:
                 next_node = node
