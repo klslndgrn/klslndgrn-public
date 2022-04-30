@@ -7,15 +7,9 @@ class BusBar(psc.ConductingEquipment):
     '''
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  Type='NotSpecified', BaseVolt=0, Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.BaseVolt = BaseVolt
 
     # def __repr__(self):
@@ -29,15 +23,9 @@ class Transformer(psc.ConductingEquipment):
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  TermID1, TermID2, V_hv, V_lv, S_n,
                  Type='NotSpecified', Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.T_ID1 = TermID1
         self.T_ID2 = TermID2
         self.V_hv = V_hv
@@ -57,15 +45,9 @@ class Transformer3Way(psc.ConductingEquipment):
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  TermID1, TermID2, TermID3, V_hv, V_mv, V_lv, S_n,
                  Type='NotSpecified', Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.T_ID1 = TermID1
         self.T_ID2 = TermID2
         self.T_ID3 = TermID3
@@ -86,15 +68,9 @@ class Breaker(psc.ConductingEquipment):
     '''
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  OpenState=False, Type='NotSpecified', Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.OpenState = OpenState
 
     # def __repr__(self):
@@ -109,15 +85,9 @@ class Shunt(psc.ConductingEquipment):
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  P_shunt=0, Q_shunt=0,
                  Type='NotSpecified', Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.P_shunt = P_shunt
         self.Q_shunt = Q_shunt
 
@@ -132,15 +102,9 @@ class Load(psc.ConductingEquipment):
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  P_Load=0, Q_Load=0,
                  Type='NotSpecified', Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.P_Load = P_Load
         self.Q_Load = Q_Load
 
@@ -153,15 +117,9 @@ class Line(psc.ConductingEquipment):
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  FromID, ToID, Length,
                  Type='NotSpecified', Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.FromID = FromID
         self.ToID = ToID
         self.Length = Length
@@ -175,15 +133,9 @@ class Generator(psc.ConductingEquipment):
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  GeneratorID, P_Gen=0, Q_Gen=0, PF=1,
                  Type='NotSpecified', Processed=False):
-        super().__init__()
+        super().__init__(ID, Name, CE_Type, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.CE_Type = CE_Type
         self.CID = EquipmentContainerID
-        self.Processed = Processed
-
         self.GenID = GeneratorID
         self.P_Gen = P_Gen
         self.Q_Gen = Q_Gen

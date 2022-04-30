@@ -185,7 +185,7 @@ def breaker_data(root):
         types = 'CE'
         CE_type = 'Breaker'
 
-        brkr = cec.Breaker(id, name, CE_type, ecid, openstate, name,
+        brkr = cec.Breaker(id, name, CE_type, ecid, openstate,
                            Type=types)
         breakers.append(brkr)
     return(breakers)
@@ -261,7 +261,7 @@ def transformer_data(root):
                     trafodict_sort[k] = trafodict[k]
                     break
 
-        print(trafodict_sort)
+        # print(trafodict_sort)
 
         idz = list(trafodict_sort.keys())
         vlvl = list(trafodict_sort.values())
@@ -377,3 +377,36 @@ def generator_data(root):
                             Type=types)
         generators.append(lds)
     return(generators)
+
+
+def conducting_equipment_data(root):
+    CE = []
+    CE_new = []
+    CE.append(busbar_data(root))
+    CE.append(breaker_data(root))
+    CE.append(shunt_data(root))
+    CE.append(transformer_data(root))
+    CE.append(line_data(root))
+    CE.append(load_data(root))
+    CE.append(generator_data(root))
+
+    for i in CE:
+        for j in i:
+            CE_new.append(j)
+    return(CE_new)
+
+
+# --------------------------------------------------------------------------- #
+# ------------------------ ALL EQUIPMENT ------------------------------------ #
+# --------------------------------------------------------------------------- #
+def all_data(root):
+    all = []
+    all_new = []
+    all.append(terminal_data(root))
+    all.append(connectivity_node_data(root))
+    all.append(conducting_equipment_data(root))
+
+    for i in all:
+        for j in i:
+            all_new.append(j)
+    return(all_new)

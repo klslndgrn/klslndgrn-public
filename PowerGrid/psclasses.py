@@ -20,13 +20,13 @@ class Terminal(PSEquipment):
     A subclass to PSEquipment that creates Terminal variables.
     '''
     def __init__(self, ID, Name, ConductingEquipmentID, ConnectivityNodeID,
-                 Type='NotSpecified', ConnectionStatus=True, Processed=False):
-        super().__init__()
+                 Type, ConnectionStatus=True, Processed=False):
+        super().__init__(ID, Name, Type, Processed)
 
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.Processed = Processed
+        # self.ID = ID
+        # self.Name = Name
+        # self.Type = Type
+        # self.Processed = Processed
 
         self.CE = ConductingEquipmentID
         self.CN = ConnectivityNodeID
@@ -43,13 +43,8 @@ class ConnectivityNode(PSEquipment):
     A subclass to PSEquipment that creates ConnectivityNode variables.
     '''
     def __init__(self, ID, Name, ConnectivityNodeContainerID,
-                 Type='NotSpecified', Processed=False):
-        super().__init__()
-
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.Processed = Processed
+                 Type, Processed=False):
+        super().__init__(ID, Name, Type, Processed)
 
         self.CID = ConnectivityNodeContainerID
 
@@ -64,18 +59,15 @@ class ConductingEquipment(PSEquipment):
     A subclass to PSEquipment that creates ConductingEquipment variables.
     There are multiple of subclasses to this subclass.
     '''
-    def __init__(self, ID, Name, CE_Type, Type='NotSpecified',
+    def __init__(self, ID, Name, CE_Type, Type,
                  Processed=False):
-
-        self.ID = ID
-        self.Name = Name
-        self.Type = Type
-        self.Processed = Processed
+        super().__init__(ID, Name, Type, Processed)
 
         self.CE_Type = CE_Type
 
-    # def __repr__(self):
-    #     return(f'({self.Name}, Type = {self.Type}) \n')
+    def __repr__(self):
+        return(f'({self.Name}, Type = {self.Type}, CE Type = {self.CE_Type}) \
+               \n')
 
 
 class ConnectivityNodeGroup():
