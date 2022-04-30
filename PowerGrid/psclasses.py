@@ -9,12 +9,10 @@ class PSEquipment():
         self.ID = ID
         self.Name = Name
         self.Type = Type
-
         self.Processed = Processed
 
     def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}, \
-               Processed = {self.Processed}) \n')
+        return(f'({self.Name}, Type = {self.Type}) \n')
 
 
 class Terminal(PSEquipment):
@@ -28,16 +26,16 @@ class Terminal(PSEquipment):
         self.ID = ID
         self.Name = Name
         self.Type = Type
+        self.Processed = Processed
 
         self.CE = ConductingEquipmentID
         self.CN = ConnectivityNodeID
         self.ConStatus = ConnectionStatus
 
-        self.Processed = Processed
-
     def __repr__(self):
-        return(f'(ID = {self.ID}, CE = {self.CE}, CN ={self.CN}, \
-               Processed = {self.Processed}) \n')
+        return(f'({self.Name}, Type = {self.Type}) \n')
+        # return(f'(ID = {self.ID}, CE = {self.CE}, CN ={self.CN}, \
+        #        Processed = {self.Processed}) \n')
 
 
 class ConnectivityNode(PSEquipment):
@@ -51,14 +49,14 @@ class ConnectivityNode(PSEquipment):
         self.ID = ID
         self.Name = Name
         self.Type = Type
+        self.Processed = Processed
 
         self.CID = ConnectivityNodeContainerID
 
-        self.Processed = Processed
-
     def __repr__(self):
-        return(f'(ID = {self.ID}, Container ID = {self.CID}, \
-               Processed = {self.Processed})) \n')
+        return(f'({self.Name}, Type = {self.Type}) \n')
+        # return(f'(ID = {self.ID}, Container ID = {self.CID}, \
+        #        Processed = {self.Processed})) \n')
 
 
 class ConductingEquipment(PSEquipment):
@@ -72,10 +70,12 @@ class ConductingEquipment(PSEquipment):
         self.ID = ID
         self.Name = Name
         self.Type = Type
+        self.Processed = Processed
 
         self.CE_Type = CE_Type
 
-        self.Processed = Processed
+    def __repr__(self):
+        return(f'({self.Name}, Type = {self.Type}) \n')
 
 
 class ConnectivityNodeGroup():
