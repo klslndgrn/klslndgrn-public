@@ -114,7 +114,9 @@ def terminal_data(root):
         cn_id = cn.attrib.get(ns['rdf'] + 'resource')
         cn_id = cn_id[1:]
 
-        term = psc.Terminal(id, ce_id, cn_id, name)
+        types = 'Te'
+
+        term = psc.Terminal(id, name, ce_id, cn_id, Type=types)
         terminals.append(term)
     return(terminals)
 
@@ -134,7 +136,9 @@ def connectivity_node_data(root):
         cid = cnc.attrib.get(ns['rdf'] + 'resource')
         cid = cid[1:]
 
-        conode = psc.ConnectivityNode(id, cid, name)
+        types = 'CN'
+
+        conode = psc.ConnectivityNode(id, name, cid, Type=types)
         connectivitynodes.append(conode)
     return(connectivitynodes)
 
@@ -154,7 +158,10 @@ def busbar_data(root):
         ecid = ec.attrib.get(ns['rdf'] + 'resource')
         ecid = ecid[1:]
 
-        busbarcon = cec.BusBar(id, ecid, name)
+        types = 'CE'
+        CE_type = 'BusBar'
+
+        busbarcon = cec.BusBar(id, name, CE_type, ecid, Type=types)
         busbars.append(busbarcon)
     return(busbars)
 
@@ -176,7 +183,11 @@ def breaker_data(root):
         ecid = ec.attrib.get(ns['rdf'] + 'resource')
         ecid = ecid[1:]
 
-        brkr = cec.Breaker(id, ecid, openstate, name)
+        types = 'CE'
+        CE_type = 'Breaker'
+
+        brkr = cec.Breaker(id, name, CE_type, ecid, openstate, name,
+                           Type=types)
         breakers.append(brkr)
     return(breakers)
 
@@ -194,7 +205,10 @@ def shunt_data(root):
         ecid = ec.attrib.get(ns['rdf'] + 'resource')
         ecid = ecid[1:]
 
-        shnts = cec.Shunt(id, ecid, name)
+        types = 'CE'
+        CE_type = 'Shunt'
+
+        shnts = cec.Shunt(id, name, CE_type, ecid, Type=types)
         shunts.append(shnts)
     return(shunts)
 
@@ -211,6 +225,9 @@ def transformer_data(root):
         ec = transformer.find('cim:Equipment.EquipmentContainer', ns)
         ecid = ec.attrib.get(ns['rdf'] + 'resource')
         ecid = ecid[1:]
+
+        types = 'CE'
+        CE_type = 'Transformer'
 
         trafodict = {}
         # Extracting data from "cim:PowerTransformerEnd"
@@ -258,8 +275,10 @@ def transformer_data(root):
             TermID2 = idz[1]
             V_hv = vlvl[0]
             V_lv = vlvl[1]
-            trans = cec.Transformer(id, ecid, TermID1, TermID2,
-                                    V_hv, V_lv, S_n, name)
+            trans = cec.Transformer(id, name, CE_type, ecid,
+                                    TermID1, TermID2,
+                                    V_hv, V_lv, S_n,
+                                    Type=types)
             transformers.append(trans)
         if len(idz) == 3:
             TermID1 = idz[0]
@@ -268,8 +287,10 @@ def transformer_data(root):
             V_hv = vlvl[0]
             V_mv = vlvl[1]
             V_lv = vlvl[2]
-            trans = cec.Transformer3Way(id, ecid, TermID1, TermID2, TermID3,
-                                        V_hv, V_mv, V_lv, S_n, name)
+            trans = cec.Transformer3Way(id, name, CE_type, ecid,
+                                        TermID1, TermID2, TermID3,
+                                        V_hv, V_mv, V_lv, S_n,
+                                        Type=types)
             transformers.append(trans)
     return(transformers)
 
@@ -287,7 +308,10 @@ def load_data(root):
         ecid = ec.attrib.get(ns['rdf'] + 'resource')
         ecid = ecid[1:]
 
-        lds = cec.Load(id, ecid, Name=name)
+        types = 'CE'
+        CE_type = 'Load'
+
+        lds = cec.Load(id, name, CE_type, ecid, Type=types)
         consumers.append(lds)
     return(consumers)
 
@@ -305,6 +329,9 @@ def line_data(root):
         ecid = ec.attrib.get(ns['rdf'] + 'resource')
         ecid = ecid[1:]
 
+        types = 'CE'
+        CE_type = 'Line'
+
         length = line.find('{' + ns['cim'] + '}' + 'Conductor.length').text
         ToFrom = []
         for terminal in root.findall('cim:Terminal', ns):
@@ -319,7 +346,9 @@ def line_data(root):
 
         FromID = ToFrom[0]
         ToID = ToFrom[1]
-        lns = cec.Line(id, ecid, FromID, ToID, Length=length, Name=name)
+        lns = cec.Line(id, name, CE_type, ecid,
+                       FromID, ToID, Length=length,
+                       Type=types)
         lines.append(lns)
     return(lines)
 
@@ -334,6 +363,9 @@ def generator_data(root):
         name = generator.find('{' + ns['cim'] + '}' +
                               'IdentifiedObject.name').text
 
+        types = 'CE'
+        CE_type = 'Generator'
+
         ec = generator.find('cim:Equipment.EquipmentContainer', ns)
         ecid = ec.attrib.get(ns['rdf'] + 'resource')
         ecid = ecid[1:]
@@ -345,6 +377,7 @@ def generator_data(root):
         cosphi = generator.find('{' + ns['cim'] + '}' +
                                 'RotatingMachine.ratedPowerFactor')
 
-        lds = cec.Generator(id, ecid, genid, PF=cosphi, Name=name)
+        lds = cec.Generator(id, name, CE_type, ecid, genid, PF=cosphi,
+                            Type=types)
         generators.append(lds)
     return(generators)
