@@ -32,8 +32,8 @@ class Terminal(PSEquipment):
         self.CN = ConnectivityNodeID
         self.ConStatus = ConnectionStatus
 
-    def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}) \n')
+    # def __repr__(self):
+    #     return(f'({self.Name}, Type = {self.Type}) \n')
         # return(f'(ID = {self.ID}, CE = {self.CE}, CN ={self.CN}, \
         #        Processed = {self.Processed}) \n')
 
@@ -53,8 +53,8 @@ class ConnectivityNode(PSEquipment):
 
         self.CID = ConnectivityNodeContainerID
 
-    def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}) \n')
+    # def __repr__(self):
+    #     return(f'({self.Name}, Type = {self.Type}) \n')
         # return(f'(ID = {self.ID}, Container ID = {self.CID}, \
         #        Processed = {self.Processed})) \n')
 
@@ -74,8 +74,8 @@ class ConductingEquipment(PSEquipment):
 
         self.CE_Type = CE_Type
 
-    def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}) \n')
+    # def __repr__(self):
+    #     return(f'({self.Name}, Type = {self.Type}) \n')
 
 
 class ConnectivityNodeGroup():

@@ -18,8 +18,8 @@ class BusBar(psc.ConductingEquipment):
 
         self.BaseVolt = BaseVolt
 
-    def __repr__(self):
-        return(f'(ID = {self.ID}, Processed = {self.Processed})) \n')
+    # def __repr__(self):
+    #     return(f'(ID = {self.ID}, Processed = {self.Processed})) \n')
 
 
 class Transformer(psc.ConductingEquipment):
@@ -44,10 +44,10 @@ class Transformer(psc.ConductingEquipment):
         self.V_lv = V_lv
         self.S_n = S_n
 
-    def __repr__(self):
-        return(f'(2-WAY-TRAFO:ID = {self.ID}, Voltage Levels = {self.V_hv}/ \
-               {self.V_lv} kV, S_n = {self.S_n}, \
-               Processed = {self.Processed})) \n')
+    # def __repr__(self):
+    #     return(f'(2-WAY-TRAFO:ID = {self.ID}, Voltage Levels = {self.V_hv}/ \
+    #            {self.V_lv} kV, S_n = {self.S_n}, \
+    #            Processed = {self.Processed})) \n')
 
 
 class Transformer3Way(psc.ConductingEquipment):
@@ -74,10 +74,10 @@ class Transformer3Way(psc.ConductingEquipment):
         self.V_lv = V_lv
         self.S_n = S_n
 
-    def __repr__(self):
-        return(f'(3-WAY-TRAFO: ID = {self.ID}, Voltage Levels = {self.V_hv}/ \
-              {self.V_mv}/{self.V_lv} kV, S_n = {self.S_n}, \
-              Processed = {self.Processed})) \n')
+    # def __repr__(self):
+    #     return(f'(3-WAY-TRAFO: ID = {self.ID}, Voltage Levels = {self.V_hv}/
+    #           {self.V_mv}/{self.V_lv} kV, S_n = {self.S_n}, \
+    #           Processed = {self.Processed})) \n')
 
 
 class Breaker(psc.ConductingEquipment):
@@ -97,9 +97,9 @@ class Breaker(psc.ConductingEquipment):
 
         self.OpenState = OpenState
 
-    def __repr__(self):
-        return(f'(ID = {self.ID}, OpenState = {self.OpenState}, \
-                Processed = {self.Processed})) \n')
+    # def __repr__(self):
+    #     return(f'(ID = {self.ID}, OpenState = {self.OpenState}, \
+    #             Processed = {self.Processed})) \n')
 
 
 class Shunt(psc.ConductingEquipment):
@@ -121,8 +121,8 @@ class Shunt(psc.ConductingEquipment):
         self.P_shunt = P_shunt
         self.Q_shunt = Q_shunt
 
-    def __repr__(self):
-        return(f'(ID = {self.ID}, Processed = {self.Processed})) \n')
+    # def __repr__(self):
+    #     return(f'(ID = {self.ID}, Processed = {self.Processed})) \n')
 
 
 class Load(psc.ConductingEquipment):
@@ -144,9 +144,9 @@ class Load(psc.ConductingEquipment):
         self.P_Load = P_Load
         self.Q_Load = Q_Load
 
-    def __repr__(self):
-        return(f'(ID = {self.ID}, P = {self.P_Load} kV, Q = {self.Q_Load} \
-                kVAr, Processed = {self.Processed})) \n')
+    # def __repr__(self):
+    #     return(f'(ID = {self.ID}, P = {self.P_Load} kV, Q = {self.Q_Load} \
+    #             kVAr, Processed = {self.Processed})) \n')
 
 
 class Line(psc.ConductingEquipment):
@@ -166,9 +166,9 @@ class Line(psc.ConductingEquipment):
         self.ToID = ToID
         self.Length = Length
 
-    def __repr__(self):
-        return(f'(ID = {self.ID}, Length = {self.Length}, \
-               Processed = {self.Processed})) \n')
+    # def __repr__(self):
+    #     return(f'(ID = {self.ID}, Length = {self.Length}, \
+    #            Processed = {self.Processed})) \n')
 
 
 class Generator(psc.ConductingEquipment):
@@ -189,10 +189,6 @@ class Generator(psc.ConductingEquipment):
         self.Q_Gen = Q_Gen
         self.PF = PF
 
-    def __repr__(self):
-        return(f'(ID = {self.ID}, P = {self.P_Gen} kV, Q = {self.Q_Gen} kVAr, \
-               Processed = {self.Processed})) \n')
-
-# -------------------------------------------------------------------- #
-# ------------------------ UNFINISHED CLASSES ------------------------ #
-# -------------------------------------------------------------------- #
+    # def __repr__(self):
+    #     return(f'(ID = {self.ID}, P = {self.P_Gen} kV, Q = {self.Q_Gen} kVAr,
+    #            Processed = {self.Processed})) \n')

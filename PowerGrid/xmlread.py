@@ -1,3 +1,6 @@
+'''
+This file contains functions to extract data from XML files
+'''
 # XML library
 import xml.etree.ElementTree as ET
 
@@ -14,11 +17,10 @@ ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
       'entsoe': 'http://entsoe.eu/CIM/SchemaExtension/3/1#',
       'rdf': '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'}
 
+
 # --------------------------------------------------------------------------- #
 # ------------------------ GENERAL FUNCTIONS -------------------------------- #
 # --------------------------------------------------------------------------- #
-
-
 def tags_no_show():
     ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
           'entsoe': 'http://entsoe.eu/CIM/SchemaExtension/3/1#',
@@ -79,11 +81,19 @@ def find_connected_equipment_CN(root, eqlist):
                 equipment.append(tg)
     return(equipment)
 
+
 # --------------------------------------------------------------------------- #
 # ------------------------ DATA EXTRACTION ---------------------------------- #
 # --------------------------------------------------------------------------- #
+'''
+Below is data extraction for Terminals (TE), Connectivity Nodes (CN),
+and Conduction Equipment (CE).
+'''
 
 
+# --------------------------------------------------------------------------- #
+# ------------------------ TE: TERMINALS ------------------------------------ #
+# --------------------------------------------------------------------------- #
 def terminal_data(root):
     '''
     Searches for "cim:Terminal" which is the main block,
@@ -109,6 +119,9 @@ def terminal_data(root):
     return(terminals)
 
 
+# --------------------------------------------------------------------------- #
+# ------------------------ CN: CONNECTIVITY NODES --------------------------- #
+# --------------------------------------------------------------------------- #
 def connectivity_node_data(root):
     connectivitynodes = []
     for cn in root.findall('cim:ConnectivityNode', ns):
@@ -126,6 +139,9 @@ def connectivity_node_data(root):
     return(connectivitynodes)
 
 
+# --------------------------------------------------------------------------- #
+# ------------------------ CE: CONDUCTION EQUIPMENT ------------------------- #
+# --------------------------------------------------------------------------- #
 def busbar_data(root):
     busbars = []
     for bbs in root.findall('cim:BusbarSection', ns):
