@@ -70,3 +70,5 @@ net = gc.grid_initializer
 curr = gc.find_initial()
 
 initial = gc.find_next(curr, cn_data)
+
+# Continue on this...
