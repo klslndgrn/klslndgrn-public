@@ -167,7 +167,6 @@ def busbar_data(root):
 
 
 def breaker_data(root):
-    # TODO: Is more data needed?
     breakers = []
     for breaker in root.findall('cim:Breaker', ns):
 
@@ -193,7 +192,6 @@ def breaker_data(root):
 
 
 def shunt_data(root):
-    # TODO: Is more data needed? TapChanger?
     shunts = []
     for shunt in root.findall('cim:LinearShuntCompensator', ns):
 
@@ -214,7 +212,6 @@ def shunt_data(root):
 
 
 def transformer_data(root):
-    # TODO: Might need to modify this to find "3-way transformers"!
     transformers = []
     for transformer in root.findall('cim:PowerTransformer', ns):
         id = transformer.attrib.get(ns['rdf'] + 'ID')
@@ -354,7 +351,6 @@ def line_data(root):
 
 
 def generator_data(root):
-    # TODO: Is more needed?
     generators = []
     for generator in root.findall('cim:SynchronousMachine', ns):
 
