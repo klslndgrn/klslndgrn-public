@@ -1,11 +1,13 @@
 # MAIN FILE FOR ASSINGMENT 1:
 
 # Needed Libaries
-import xmlread as xr
-import gridcreator as gc
-# import grid
-# import psclasses as psc
-# import ceclasses as cec
+# import xmlread as xr
+# import gridcreator as gc
+import gridcreator2 as gc2
+# import pandapower as pp
+import grid as g
+# from data import root
+from data import all_data
 
 # --------------------------------------------------------------------------- #
 # ------------------------ METHOD FOR SOLUTION ------------------------------ #
@@ -32,43 +34,66 @@ import gridcreator as gc
 # --------------------------------------------------------------------------- #
 # ------------------------ RETRIEVING XML-FILE ------------------------------ #
 # --------------------------------------------------------------------------- #
-xml_file = 'Assignment_EQ_reduced.xml'
 
-# Accessing root of XML file ----------------------- #
-root = xr.read_file(xml_file)
 
 # --------------------------------------------------------------------------- #
 # ------------------------ EXTRACTING DATA ---------------------------------- #
 # --------------------------------------------------------------------------- #
 
-# TERMINAL DATA ------------------------------------ #
-terminal_data = xr.terminal_data(root)
-print('Terminals =')
-print(terminal_data)
+# # TERMINAL DATA ------------------------------------ #
+# terminal_data = xr.terminal_data(root)
+# print('Terminals =')
+# print(terminal_data)
 
-# CONNECTIVY NODE DATA ----------------------------- #
-cn_data = xr.connectivity_node_data(root)
-print('Connectivity Nodes =')
-print(cn_data)
+# # CONNECTIVY NODE DATA ----------------------------- #
+# cn_data = xr.connectivity_node_data(root)
+# print('Connectivity Nodes =')
+# print(cn_data)
 
-# CONDUCTING EQUIPMENT DATA ------------------------ #
-ce_data = xr.conducting_equipment_data(root)
-print('Conduction Equipment Data = ')
-print(ce_data)
+# # CONDUCTING EQUIPMENT DATA ------------------------ #
+# ce_data = xr.conducting_equipment_data(root)
+# print('Conduction Equipment Data = ')
+# print(ce_data)
 
-# ALL DATA ----------------------------------------- #
-all_data = xr.all_data(root)
-print('All Data = ')
-print(all_data)
+# # ALL DATA ----------------------------------------- #
+# all_data = xr.all_data(root)
+# print('All Data = ')
+# print(all_data)
 
 # --------------------------------------------------------------------------- #
 # ------------------------ CREATING THE GRID -------------------------------- #
 # --------------------------------------------------------------------------- #
 
-net = gc.grid_initializer
+grid_data = all_data
+net, grid_data = gc2.grid_initializer(grid_data)
 
-curr = gc.find_initial()
+# next = gc2.find_initial(grid_data)
+# print(next)
 
-initial = gc.find_next(curr, cn_data)
+net, grid_data = gc2.grid_creator(net, grid_data)
 
-# Continue on this...
+print(grid_data)
+
+# print(net.bus)
+# print(net.line)
+
+g.plot_grid(net)
+
+# --------------------------------------------------------------------------- #
+# ------------------------ TESTING ------------------------------------------ #
+# --------------------------------------------------------------------------- #
+
+
+# def find_specific(data):
+#     for i in data:
+#         if i.Type == 'CE':
+#             if i.CE_Type == 'BusBar':
+#                 return(i)
+#             else:
+#                 pass
+#         else:
+#             pass
+
+
+# busbar = find_specific(all_data)
+# print(busbar)

@@ -138,7 +138,13 @@ def connectivity_node_data(root):
 
         types = 'CN'
 
-        conode = psc.ConnectivityNode(id, name, cid, Type=types)
+        for voltlevel in root.findall('cim:VoltageLevel', ns):
+            vlid = voltlevel.attrib.get(ns['rdf'] + 'ID')
+            if vlid == cid:
+                v_n = voltlevel.find('{' + ns['cim'] + '}' +
+                                     'cim:IdentifiedObject.name')
+
+        conode = psc.ConnectivityNode(id, name, cid, v_n, Type=types)
         connectivitynodes.append(conode)
     return(connectivitynodes)
 
@@ -185,7 +191,19 @@ def breaker_data(root):
         types = 'CE'
         CE_type = 'Breaker'
 
-        brkr = cec.Breaker(id, name, CE_type, ecid, openstate,
+        break_id = []
+        for terminal in root.findall('cim:Terminal', ns):
+
+            br = terminal.find('cim:Terminal.ConductingEquipment', ns)
+            brid = br.attrib.get(ns['rdf'] + 'resource')
+            breakerid = brid[1:]
+
+            break_id.append(breakerid)
+
+        FromID = break_id[0]
+        ToID = break_id[1]
+
+        brkr = cec.Breaker(id, name, CE_type, ecid, FromID, ToID, openstate,
                            Type=types)
         breakers.append(brkr)
     return(breakers)
@@ -206,7 +224,24 @@ def shunt_data(root):
         types = 'CE'
         CE_type = 'Shunt'
 
-        shnts = cec.Shunt(id, name, CE_type, ecid, Type=types)
+        for terminal in root.findall('cim:Terminal', ns):
+            # tendid = trafoend.attrib.get(ns['rdf'] + 'ID')
+
+            sh = terminal.find('cim:Terminal.ConductingEquipment', ns)
+            shid = sh.attrib.get(ns['rdf'] + 'resource')
+            shuntid = shid[1:]
+
+            cn = terminal.find('cim:Terminal.ConnectivityNode', ns)
+            cnid = cn.attrib.get(ns['rdf'] + 'resource')
+            connodeid = cnid[1:]
+
+            if id == shuntid:
+                CNID = connodeid
+                break
+            else:
+                pass
+
+        shnts = cec.Shunt(id, name, CE_type, ecid, CNID, Type=types)
         shunts.append(shnts)
     return(shunts)
 

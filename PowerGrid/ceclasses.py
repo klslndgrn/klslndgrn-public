@@ -26,8 +26,8 @@ class Transformer(psc.ConductingEquipment):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
         self.CID = EquipmentContainerID
-        self.T_ID1 = TermID1
-        self.T_ID2 = TermID2
+        self.TermID1 = TermID1
+        self.TermID2 = TermID2
         self.V_hv = V_hv
         self.V_lv = V_lv
         self.S_n = S_n
@@ -67,10 +67,13 @@ class Breaker(psc.ConductingEquipment):
     Breaker/Switch class.
     '''
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
-                 OpenState=False, Type='NotSpecified', Processed=False):
+                 ToID, FromID, OpenState=False,
+                 Type='NotSpecified', Processed=False):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
         self.CID = EquipmentContainerID
+        self.FromID = FromID
+        self.ToID = ToID
         self.OpenState = OpenState
 
     # def __repr__(self):
@@ -83,13 +86,14 @@ class Shunt(psc.ConductingEquipment):
     Shunt capacitor class.
     '''
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
-                 P_shunt=0, Q_shunt=0,
+                 ConNodeConnection, P_Shunt=0, Q_Shunt=0,
                  Type='NotSpecified', Processed=False):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
         self.CID = EquipmentContainerID
-        self.P_shunt = P_shunt
-        self.Q_shunt = Q_shunt
+        self.CN = ConNodeConnection
+        self.P_Shunt = P_Shunt
+        self.Q_Shunt = Q_Shunt
 
     # def __repr__(self):
     #     return(f'(ID = {self.ID}, Processed = {self.Processed})) \n')

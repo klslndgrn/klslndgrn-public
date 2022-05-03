@@ -12,7 +12,7 @@ class PSEquipment():
         self.Processed = Processed
 
     def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}) \n')
+        return(f'({self.Name}, Type = {self.Type}, Pr. = {self.Processed}) \n')
 
 
 class Terminal(PSEquipment):
@@ -43,10 +43,11 @@ class ConnectivityNode(PSEquipment):
     A subclass to PSEquipment that creates ConnectivityNode variables.
     '''
     def __init__(self, ID, Name, ConnectivityNodeContainerID,
-                 Type, Processed=False):
+                 BaseVolt, Type, Processed=False):
         super().__init__(ID, Name, Type, Processed)
 
         self.CID = ConnectivityNodeContainerID
+        self.BaseVolt = BaseVolt
 
     # def __repr__(self):
     #     return(f'({self.Name}, Type = {self.Type}) \n')
@@ -66,8 +67,8 @@ class ConductingEquipment(PSEquipment):
         self.CE_Type = CE_Type
 
     def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}, CE Type = {self.CE_Type}) \
-               \n')
+        return(f'({self.Name}, Type = {self.Type}, CE Type = {self.CE_Type}, \
+               Pr. = {self.Processed}) \n')
 
 
 class ConnectivityNodeGroup():

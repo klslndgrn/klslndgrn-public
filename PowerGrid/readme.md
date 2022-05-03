@@ -4,6 +4,8 @@ Author: Klas Lindgren
 
 Subject: The first assignment involves reading and parsing a CIM data file representing a small power system. You are then tasked with storing the data and analyzing it to generate a model of the grid using the Pandapower toolbox.
 
+This file requires iGraph (pip install igraph)
+
 ## File Descriptions
 
 ### main.py
@@ -24,4 +26,8 @@ This file ....
 
 ### grid.py
 
-This file ....
+This file .... PandaPower functions.
+
+#### ADD
+
+Add GUI -> Save as...
