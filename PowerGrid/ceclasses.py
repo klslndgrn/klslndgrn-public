@@ -114,13 +114,15 @@ class Generator(psc.ConductingEquipment):
     Generator/Motor class.
     '''
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID, TerminalID,
-                 GeneratorID, P_Gen=0, Q_Gen=0, PF=1,
+                 GeneratorID, V_nom=0, S_nom=0, PF=1, P_Gen=0, Q_Gen=0,
                  Type='NotSpecified', Processed=False):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
         self.TermID = TerminalID
         self.CID = EquipmentContainerID
         self.GenID = GeneratorID
+        self.Vn = V_nom
+        self.Sn = S_nom
+        self.PF = PF
         self.P_Gen = P_Gen
         self.Q_Gen = Q_Gen
-        self.PF = PF

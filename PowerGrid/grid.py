@@ -7,7 +7,6 @@ from data import all_data
 
 
 def find_element_from_id(net, TermID):
-    # FIXME: From Terminal ID -> CN Name
     type = 'bus'
     for i in all_data:
         if i.ID == TermID:
@@ -46,6 +45,9 @@ def create_transformer(net, inputclass):
     # S_n = inputclass.S_n
     names = inputclass.Name
     std = '160 MVA 380/110 kV'
+
+    # print(f'Hv Bus = {hv_bus}')
+    # print(f'Lv Bus = {lv_bus}')
 
     transformer = pp.create_transformer(net, hv_bus, lv_bus, std, name=names)
     # sn_mva=S_n, vn_hv_kv=V_hv, vn_lv_kv=V_lv,
@@ -115,8 +117,11 @@ def create_line(net, inputclass):
     to_bus_ID = inputclass.ToID
     to_bus = find_element_from_id(net, to_bus_ID)
     length = inputclass.Length
-    names = inputclass.name
+    names = inputclass.Name
     std = 'NAYY 4x50 SE'
+
+    # print(f'From Bus = {from_bus}')
+    # print(f'To Bus = {to_bus}')
 
     line = pp.create_line(net, from_bus, to_bus, length, std, name=names)
 
@@ -148,7 +153,6 @@ def create_shunt(net, inputclass):
 
     bus_idx_ID = inputclass.TermID
     bus_idx = find_element_from_id(net, bus_idx_ID)
-    print(f'Shunt bus = {bus_idx}')
     p = inputclass.P_Shunt
     q = inputclass.Q_Shunt
     names = inputclass.Name
@@ -199,6 +203,28 @@ def create_motor(net, inputclass):
     return(motor)
 
 
+def create_generator(net, inputclass):
+    '''
+    Generator:
+    pp.create_gen(...)
+    '''
+
+    bus_idx_ID = inputclass.TermID
+    bus_idx = find_element_from_id(net, bus_idx_ID)
+    cos_phi = inputclass.PF
+    sn = inputclass.Sn
+    p_gen = int(float(sn)) * int(float(cos_phi))
+    names = inputclass.Name
+
+    motor = pp.create_gen(net, bus_idx, p_mw=p_gen, sn_mva=sn, name=names)
+
+    return(motor)
+
+
 def plot_grid(net):
-    plot = simple_plot(net)
+    plot = simple_plot(net,
+                       plot_loads=True,
+                       load_size=2,
+                       plot_gens=True,
+                       gen_size=2)
     return(plot)

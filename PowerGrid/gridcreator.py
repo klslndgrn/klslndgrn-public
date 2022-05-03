@@ -45,16 +45,16 @@ def grid_creator(net, grid_data):
                 g.create_shunt(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Transformer':
-                g.create_transformer
+                g.create_transformer(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Line':
-                g.create_line
+                g.create_line(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Load':
-                g.create_load
+                g.create_load(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Generator':
-                g.create_motor
+                g.create_generator(net, node)
                 flag_step(node)
             else:
                 # print(f'{node.Name} is not created')

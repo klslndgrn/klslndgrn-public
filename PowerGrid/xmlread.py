@@ -352,14 +352,14 @@ def load_data(root):
         CE_type = 'Load'
 
         for terminal in root.findall('cim:Terminal', ns):
-            # tendid = trafoend.attrib.get(ns['rdf'] + 'ID')
+            terminalID = terminal.attrib.get(ns['rdf'] + 'ID')
 
             t = terminal.find('cim:Terminal.ConductingEquipment', ns)
             tid = t.attrib.get(ns['rdf'] + 'resource')
             TID = tid[1:]
 
             if id == TID:
-                TermID = TID
+                TermID = terminalID
                 break
             else:
                 pass
@@ -426,23 +426,30 @@ def generator_data(root):
         genid = gen.attrib.get(ns['rdf'] + 'resource')
         genid = genid[1:]
 
+        v_n = generator.find('{' + ns['cim'] + '}' +
+                             'RotatingMachine.ratedU').text
+
+        s_n = generator.find('{' + ns['cim'] + '}' +
+                             'RotatingMachine.ratedS').text
+
         cosphi = generator.find('{' + ns['cim'] + '}' +
-                                'RotatingMachine.ratedPowerFactor')
+                                'RotatingMachine.ratedPowerFactor').text
 
         for terminal in root.findall('cim:Terminal', ns):
-            # tendid = trafoend.attrib.get(ns['rdf'] + 'ID')
+            terminalID = terminal.attrib.get(ns['rdf'] + 'ID')
 
             t = terminal.find('cim:Terminal.ConductingEquipment', ns)
             tid = t.attrib.get(ns['rdf'] + 'resource')
             TID = tid[1:]
 
             if id == TID:
-                TermID = TID
+                TermID = terminalID
                 break
             else:
                 pass
 
-        lds = cec.Generator(id, name, CE_type, ecid, TermID, genid, PF=cosphi,
+        lds = cec.Generator(id, name, CE_type, ecid, TermID, genid,
+                            V_nom=v_n, S_nom=s_n, PF=cosphi,
                             Type=types)
         generators.append(lds)
     return(generators)
