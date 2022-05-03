@@ -56,8 +56,3 @@ class ConductingEquipment(PSEquipment):
     def __repr__(self):
         return(f'({self.Name}, {self.Type}, {self.CE_Type}, {self.Processed})\
                \n')
-
-
-class ConnectivityNodeGroup():
-    # FIXME: Should this be included?
-    pass

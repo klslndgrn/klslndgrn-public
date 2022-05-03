@@ -16,26 +16,14 @@ ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
       'rdf': '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'}
 
 
-# --------------------------------------------------------------------------- #
-# ------------------------ GENERAL FUNCTIONS -------------------------------- #
-# --------------------------------------------------------------------------- #
-def tags_no_show():
-    ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
-          'entsoe': 'http://entsoe.eu/CIM/SchemaExtension/3/1#',
-          'rdf': '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'}
-    return(ns)
-
-
 def read_file(file):
     '''
     Creating an XML tree from file and accessing the root.
     '''
-
     # Finding directory
     filestr = 'Files/' + file
     script_location = Path(__file__).absolute().parent
     Xfile = script_location / filestr
-
     # Creating an XML tree from file.
     tree = ET.parse(Xfile)
 
@@ -78,15 +66,6 @@ def find_connected_equipment_CN(root, eqlist):
             if id == attrID and tg not in equipment:
                 equipment.append(tg)
     return(equipment)
-
-
-# --------------------------------------------------------------------------- #
-# ------------------------ DATA EXTRACTION ---------------------------------- #
-# --------------------------------------------------------------------------- #
-'''
-Below is data extraction for Terminals (TE), Connectivity Nodes (CN),
-and Conduction Equipment (CE).
-'''
 
 
 # --------------------------------------------------------------------------- #
