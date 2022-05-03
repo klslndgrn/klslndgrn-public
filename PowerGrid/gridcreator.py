@@ -8,7 +8,6 @@ def flag_step(node):
 def grid_initializer(grid_data):
     # Creating an empty grid ----------------------- #
     net = g.create_grid()
-
     # Creating BusBars ----------------------------- #
     for node in grid_data:
         if node.Type == 'CE':
@@ -20,7 +19,6 @@ def grid_initializer(grid_data):
                 pass
         else:
             pass
-
     # Creating Nodes ------------------------------- #
     for node in grid_data:
         if node.Type == 'CN' and 'Busbar' not in node.Name:
@@ -29,7 +27,6 @@ def grid_initializer(grid_data):
             flag_step(node)
         else:
             pass
-
     # Returning grid and grid data ----------------- #
     # (with updated flags) ------------------------- #
     return(net, grid_data)
