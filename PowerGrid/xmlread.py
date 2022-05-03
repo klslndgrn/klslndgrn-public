@@ -21,51 +21,18 @@ def read_file(file):
     Creating an XML tree from file and accessing the root.
     '''
     # Finding directory
-    filestr = 'Files/' + file
-    script_location = Path(__file__).absolute().parent
-    Xfile = script_location / filestr
-    # Creating an XML tree from file.
-    tree = ET.parse(Xfile)
-
-    # Accesssing root in XML tree.
+    if "/" not in file:
+        filestr = 'Files/' + file
+        script_location = Path(__file__).absolute().parent
+        Xfile = script_location / filestr
+        # Creating an XML tree from file.
+        tree = ET.parse(Xfile)
+    else:
+        xfile = file
+        tree = ET.parse(xfile)
+    # Accesssing and returning root in XML tree.
     root = tree.getroot()
-
-    # Returning the root
     return(root)
-
-
-def unique_equipment(root):
-    unieq = []
-    for equipment in root:
-        if (ns['cim'] in equipment.tag):
-            eq = equipment.tag.replace("{" + ns['cim'] + "}", "")
-            if eq not in unieq:
-                unieq.append(eq)
-    return(unieq)
-
-
-def find_connected_equipment(root, eqlist):
-    equipment = []
-    for id in eqlist:
-        for child in root:
-            tg = child.tag.replace("{" + ns['cim'] + "}", "")
-            attrID = child.attrib.get(ns['rdf'] + 'ID')
-
-            if id == attrID and tg not in equipment:
-                equipment.append(tg)
-    return(equipment)
-
-
-def find_connected_equipment_CN(root, eqlist):
-    equipment = []
-    for id in eqlist:
-        for child in root:
-            tg = child.tag.replace("{" + ns['cim'] + "}", "")
-            attrID = child.attrib.get(ns['rdf'] + 'ID')
-
-            if id == attrID and tg not in equipment:
-                equipment.append(tg)
-    return(equipment)
 
 
 # --------------------------------------------------------------------------- #
@@ -463,3 +430,41 @@ def all_data(root):
         for j in i:
             all_new.append(j)
     return(all_new)
+
+
+# --------------------------------------------------------------------------- #
+# ------------------------ Data --------------------------------------------- #
+# --------------------------------------------------------------------------- #
+
+def unique_equipment(root):
+    unieq = []
+    for equipment in root:
+        if (ns['cim'] in equipment.tag):
+            eq = equipment.tag.replace("{" + ns['cim'] + "}", "")
+            if eq not in unieq:
+                unieq.append(eq)
+    return(unieq)
+
+
+def find_connected_equipment(root, eqlist):
+    equipment = []
+    for id in eqlist:
+        for child in root:
+            tg = child.tag.replace("{" + ns['cim'] + "}", "")
+            attrID = child.attrib.get(ns['rdf'] + 'ID')
+
+            if id == attrID and tg not in equipment:
+                equipment.append(tg)
+    return(equipment)
+
+
+def find_connected_equipment_CN(root, eqlist):
+    equipment = []
+    for id in eqlist:
+        for child in root:
+            tg = child.tag.replace("{" + ns['cim'] + "}", "")
+            attrID = child.attrib.get(ns['rdf'] + 'ID')
+
+            if id == attrID and tg not in equipment:
+                equipment.append(tg)
+    return(equipment)

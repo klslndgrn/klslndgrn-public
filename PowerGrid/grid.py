@@ -1,10 +1,18 @@
 # Importing PandaPower, SimplePlot and Data
 import pandapower as pp
 from pandapower.plotting import simple_plot
-from data import all_data
 
 
-def find_element_from_id(net, TermID):
+def create_grid():
+    '''
+    Grid:
+        pp.create_empty_network(...)
+    '''
+    net = pp.create_empty_network()  # create an empty network
+    return(net)
+
+
+def find_element_from_id(net, TermID, all_data):
     type = 'bus'
     for i in all_data:
         if i.ID == TermID:
@@ -20,27 +28,21 @@ def find_element_from_id(net, TermID):
             pass
 
 
-def create_grid():
-    '''
-    Grid:
-        pp.create_empty_network(...)
-    '''
-    net = pp.create_empty_network()  # create an empty network
-    return(net)
-
-
-def create_transformer(net, inputclass):
+def create_transformer(net, inputclass, all_data):
     '''
     Creating a Transformer (PowerTransformer) with pp.create_transformer(...)
     '''
 
     hv_bus_ID = inputclass.TermID1
-    hv_bus = find_element_from_id(net, hv_bus_ID)
     lv_bus_ID = inputclass.TermID2
-    lv_bus = find_element_from_id(net, lv_bus_ID)
+
+    hv_bus = find_element_from_id(net, hv_bus_ID, all_data)
+    lv_bus = find_element_from_id(net, lv_bus_ID, all_data)
+
     # V_hv = inputclass.V_hv
     # V_lv = inputclass.V_lv
     # S_n = inputclass.S_n
+
     names = inputclass.Name
     std = '160 MVA 380/110 kV'
 
@@ -49,17 +51,19 @@ def create_transformer(net, inputclass):
     return(transformer)
 
 
-def create_transformer_3w(net, inputclass):
+def create_transformer_3w(net, inputclass, all_data):
     '''
     Creating a Transformer (PowerTransformer) with pp.create_transformer(...)
     '''
 
     hv_bus_ID = inputclass.TermID1
-    hv_bus = find_element_from_id(net, hv_bus_ID)
     mv_bus_ID = inputclass.TermID2
-    mv_bus = find_element_from_id(net, mv_bus_ID)
     lv_bus_ID = inputclass.TermID3
-    lv_bus = find_element_from_id(net, lv_bus_ID)
+
+    hv_bus = find_element_from_id(net, hv_bus_ID, all_data)
+    mv_bus = find_element_from_id(net, mv_bus_ID, all_data)
+    lv_bus = find_element_from_id(net, lv_bus_ID, all_data)
+
     # V_hv = inputclass.V_hv
     # V_lv = inputclass.V_lv
     # S_n = inputclass.S_n
@@ -93,24 +97,26 @@ def create_node(net, inputclass):
     '''
 
     names = inputclass.Name
-    types = 'n'
     basevolt = inputclass.BaseVolt
+    types = 'n'
 
     bus = pp.create_bus(net, vn_kv=basevolt, type=types, name=names)
 
     return(bus)
 
 
-def create_line(net, inputclass):
+def create_line(net, inputclass, all_data):
     '''
     Line (ACLineSegment)::
     pp.create_line(...add())
     '''
 
     from_bus_ID = inputclass.FromID
-    from_bus = find_element_from_id(net, from_bus_ID)
     to_bus_ID = inputclass.ToID
-    to_bus = find_element_from_id(net, to_bus_ID)
+
+    from_bus = find_element_from_id(net, from_bus_ID, all_data)
+    to_bus = find_element_from_id(net, to_bus_ID, all_data)
+
     length = inputclass.Length
     names = inputclass.Name
     std = 'NAYY 4x50 SE'
@@ -120,14 +126,16 @@ def create_line(net, inputclass):
     return(line)
 
 
-def create_load(net, inputclass):
+def create_load(net, inputclass, all_data):
     '''
     Load (EnergyConsumer):
     pp.create_load(...)
     '''
 
     bus_idx_ID = inputclass.TermID
-    bus_idx = find_element_from_id(net, bus_idx_ID)
+
+    bus_idx = find_element_from_id(net, bus_idx_ID, all_data)
+
     p = inputclass.P_Load
     q = inputclass.Q_Load
     names = inputclass.Name
@@ -137,14 +145,16 @@ def create_load(net, inputclass):
     return(load)
 
 
-def create_shunt(net, inputclass):
+def create_shunt(net, inputclass, all_data):
     '''
     Shunt (LinearShuntCompensator):
     pp.create_shunt(net, bus, q_mvar, name=None, index=None)
     '''
 
     bus_idx_ID = inputclass.TermID
-    bus_idx = find_element_from_id(net, bus_idx_ID)
+
+    bus_idx = find_element_from_id(net, bus_idx_ID, all_data)
+
     p = inputclass.P_Shunt
     q = inputclass.Q_Shunt
     names = inputclass.Name
@@ -154,16 +164,18 @@ def create_shunt(net, inputclass):
     return(shunt)
 
 
-def create_switch(net, inputclass):
+def create_switch(net, inputclass, all_data):
     '''
     Switch/Breaker (Breaker):
     pp.create_switch(...)
     '''
 
     from_bus_ID = inputclass.FromID
-    from_bus = find_element_from_id(net, from_bus_ID)
     to_bus_ID = inputclass.ToID
-    to_bus = find_element_from_id(net, to_bus_ID)
+
+    from_bus = find_element_from_id(net, from_bus_ID, all_data)
+    to_bus = find_element_from_id(net, to_bus_ID, all_data)
+
     state = not inputclass.OpenState
     names = inputclass.Name
     ettype = 'b'
@@ -175,7 +187,7 @@ def create_switch(net, inputclass):
     return(switch)
 
 
-def create_motor(net, inputclass):
+def create_motor(net, inputclass, all_data):
     '''
     Motor (SynchronousMachine):
     pp.create_motor(...)
@@ -185,7 +197,9 @@ def create_motor(net, inputclass):
     '''
 
     bus_idx_ID = inputclass.TermID
-    bus_idx = find_element_from_id(net, bus_idx_ID)
+
+    bus_idx = find_element_from_id(net, bus_idx_ID, all_data)
+
     p_mw = inputclass.P_Gen
     cos_phi = inputclass.PF
     names = inputclass.Name
@@ -195,14 +209,16 @@ def create_motor(net, inputclass):
     return(motor)
 
 
-def create_generator(net, inputclass):
+def create_generator(net, inputclass, all_data):
     '''
     Generator:
     pp.create_gen(...)
     '''
 
     bus_idx_ID = inputclass.TermID
-    bus_idx = find_element_from_id(net, bus_idx_ID)
+
+    bus_idx = find_element_from_id(net, bus_idx_ID, all_data)
+
     cos_phi = inputclass.PF
     sn = inputclass.Sn
     p_gen = int(float(sn)) * int(float(cos_phi))

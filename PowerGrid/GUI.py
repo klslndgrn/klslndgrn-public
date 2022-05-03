@@ -1,5 +1,6 @@
 import tkinter as tk
 import GUI_prerequisite
+# from pathlib import Path
 from tkinter import filedialog
 import main
 
@@ -21,8 +22,8 @@ class FileBrowser(GUI_prerequisite.Prerequisite):
         self.topFrame.grid()
 
         Ipb1 = Input(self.topFrame, 0, 0, "EQ")
-        Ipb2 = Input(self.topFrame, 1, 0, "SSH")
-        Opb2 = Output(self.topFrame, 2, 0, "Output")
+        # Ipb2 = Input(self.topFrame, 1, 0, "SSH")
+        # Opb2 = Output(self.topFrame, 2, 0, "Save Output")
 
         self.bottom_frame = tk.Frame(self.master)
         self.bottom_frame.grid(row=2, sticky="w")
@@ -34,21 +35,25 @@ class FileBrowser(GUI_prerequisite.Prerequisite):
                                    font=self.text_font,
                                    width=self.button_width,
                                    height=self.button_height,
-                                   command=lambda: self.compute_files())
+                                   command=lambda:
+                                       self.compute_files(Ipb1.value.get()))
+        # Ipb2.value.get()
         self.go_button.grid(row=2, column=1, pady=self.spacingY,
                             padx=self.spacingX)
 
         self.master.mainloop()
 
-    def compute_files(self):
+    def compute_files(self, file):
         # Call on main function
         # Use return value as input for text box
-        # Där Ipb1/2.value = patht to file
+        # Där Ipb1/2.value = path to file
         # och Opb1.value = path där du vill spara en fil
         # och för output i Text box
-        # self.output_box.insert("output från dit arbete")
-        main.main()
-        pass
+        # self.output_box.insert(INSERT, )
+        # print(type(str(file)))
+        # x = str(file)
+        # print(x)
+        main.main(file)
 
 
 class InputRow(GUI_prerequisite.Prerequisite):
@@ -80,7 +85,7 @@ class Output(InputRow):
 
     def browse_output(self, output, text):
         output.set(filedialog.asksaveasfilename(initialdir=".",
-                   title=text, filetypes=(("txt files", "*.txt"),
+                   title=text, filetypes=(("xml files", "*.xml"),
                                           ("all files", "*.*"))))
 
 
@@ -99,7 +104,7 @@ class Input(InputRow):
 
     def browse_file(self, var, text):
         var.set(filedialog.askopenfilename(initialdir=".", title=text,
-                filetypes=(("txt files", "*.txt"), ("all files", "*.*"))))
+                filetypes=(("xml files", "*.xml"), ("all files", "*.*"))))
 
 
 if __name__ == "__main__":

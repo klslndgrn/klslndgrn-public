@@ -9,10 +9,12 @@ def grid_initializer(grid_data):
     # Creating an empty grid ----------------------- #
     net = g.create_grid()
     # Creating BusBars ----------------------------- #
+    name_list = []
     for node in grid_data:
         if node.Type == 'CE':
             if node.CE_Type == 'BusBar':
                 # print(i)
+                name_list.append(node.Name)
                 g.create_bus(net, node)
                 flag_step(node)
             else:
@@ -21,7 +23,7 @@ def grid_initializer(grid_data):
             pass
     # Creating Nodes ------------------------------- #
     for node in grid_data:
-        if node.Type == 'CN' and 'Busbar' not in node.Name:
+        if node.Type == 'CN' and node.Name not in name_list:
             # print(i)
             g.create_node(net, node)
             flag_step(node)
@@ -37,27 +39,27 @@ def grid_creator(net, grid_data):
         if node.Type == 'CE':
             if node.CE_Type == 'Breaker':
                 # Creating Switches ---------------- #
-                g.create_switch(net, node)
+                g.create_switch(net, node, grid_data)
                 flag_step(node)
             elif node.CE_Type == 'Shunt':
                 # Creating Shunts ------------------ #
-                g.create_shunt(net, node)
+                g.create_shunt(net, node, grid_data)
                 flag_step(node)
             elif node.CE_Type == 'Transformer':
                 # Creating Transformers ------------ #
-                g.create_transformer(net, node)
+                g.create_transformer(net, node, grid_data)
                 flag_step(node)
             elif node.CE_Type == 'Line':
                 # Creating Lines ------------------- #
-                g.create_line(net, node)
+                g.create_line(net, node, grid_data)
                 flag_step(node)
             elif node.CE_Type == 'Load':
                 # Creating Loads ------------------- #
-                g.create_load(net, node)
+                g.create_load(net, node, grid_data)
                 flag_step(node)
             elif node.CE_Type == 'Generator':
                 # Creating Generators -------------- #
-                g.create_generator(net, node)
+                g.create_generator(net, node, grid_data)
                 flag_step(node)
             else:
                 # print(f'{node.Name} is not created')

@@ -5,9 +5,9 @@ import xmlread as xr
 
 
 def create_data_lists(xml_file):
-    # Accessing root of XML file ----------------------- #
+    # Accessing root of XML file ------------------- #
     root = xr.read_file(xml_file)
-    # ALL DATA ----------------------------------------- #
+    # Creating data from root ---------------------- #
     all_data = xr.all_data(root)
     return(all_data)
 
