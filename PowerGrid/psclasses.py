@@ -12,7 +12,7 @@ class PSEquipment():
         self.Processed = Processed
 
     def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}, Pr. = {self.Processed}) \n')
+        return(f'({self.Name}, {self.Type}, {self.Processed}) \n')
 
 
 class Terminal(PSEquipment):
@@ -20,22 +20,14 @@ class Terminal(PSEquipment):
     A subclass to PSEquipment that creates Terminal variables.
     '''
     def __init__(self, ID, Name, ConductingEquipmentID, ConnectivityNodeID,
-                 Type, ConnectionStatus=True, Processed=False):
+                 ConnectivityNodeName, Type,
+                 ConnectionStatus=True, Processed=False):
         super().__init__(ID, Name, Type, Processed)
-
-        # self.ID = ID
-        # self.Name = Name
-        # self.Type = Type
-        # self.Processed = Processed
 
         self.CE = ConductingEquipmentID
         self.CN = ConnectivityNodeID
+        self.CN_Name = ConnectivityNodeName
         self.ConStatus = ConnectionStatus
-
-    # def __repr__(self):
-    #     return(f'({self.Name}, Type = {self.Type}) \n')
-        # return(f'(ID = {self.ID}, CE = {self.CE}, CN ={self.CN}, \
-        #        Processed = {self.Processed}) \n')
 
 
 class ConnectivityNode(PSEquipment):
@@ -48,11 +40,6 @@ class ConnectivityNode(PSEquipment):
 
         self.CID = ConnectivityNodeContainerID
         self.BaseVolt = BaseVolt
-
-    # def __repr__(self):
-    #     return(f'({self.Name}, Type = {self.Type}) \n')
-        # return(f'(ID = {self.ID}, Container ID = {self.CID}, \
-        #        Processed = {self.Processed})) \n')
 
 
 class ConductingEquipment(PSEquipment):
@@ -67,8 +54,8 @@ class ConductingEquipment(PSEquipment):
         self.CE_Type = CE_Type
 
     def __repr__(self):
-        return(f'({self.Name}, Type = {self.Type}, CE Type = {self.CE_Type}, \
-               Pr. = {self.Processed}) \n')
+        return(f'({self.Name}, {self.Type}, {self.CE_Type}, {self.Processed})\
+               \n')
 
 
 class ConnectivityNodeGroup():

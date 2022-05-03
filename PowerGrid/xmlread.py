@@ -116,7 +116,17 @@ def terminal_data(root):
 
         types = 'Te'
 
-        term = psc.Terminal(id, name, ce_id, cn_id, Type=types)
+        for connode in root.findall('cim:ConnectivityNode', ns):
+            cnid = connode.attrib.get(ns['rdf'] + 'ID')
+            cnname = connode.find('{' + ns['cim'] + '}' +
+                                  'IdentifiedObject.name').text
+            if cnid == cn_id:
+                cn_name = cnname
+                break
+            else:
+                pass
+
+        term = psc.Terminal(id, name, ce_id, cn_id, cn_name, Type=types)
         terminals.append(term)
     return(terminals)
 
@@ -193,12 +203,16 @@ def breaker_data(root):
 
         break_id = []
         for terminal in root.findall('cim:Terminal', ns):
+            terminalID = terminal.attrib.get(ns['rdf'] + 'ID')
 
             br = terminal.find('cim:Terminal.ConductingEquipment', ns)
             brid = br.attrib.get(ns['rdf'] + 'resource')
             breakerid = brid[1:]
 
-            break_id.append(breakerid)
+            if id == breakerid:
+                break_id.append(terminalID)
+            else:
+                pass
 
         FromID = break_id[0]
         ToID = break_id[1]
@@ -225,23 +239,19 @@ def shunt_data(root):
         CE_type = 'Shunt'
 
         for terminal in root.findall('cim:Terminal', ns):
-            # tendid = trafoend.attrib.get(ns['rdf'] + 'ID')
+            terminalID = terminal.attrib.get(ns['rdf'] + 'ID')
 
-            sh = terminal.find('cim:Terminal.ConductingEquipment', ns)
-            shid = sh.attrib.get(ns['rdf'] + 'resource')
-            shuntid = shid[1:]
+            t = terminal.find('cim:Terminal.ConductingEquipment', ns)
+            tid = t.attrib.get(ns['rdf'] + 'resource')
+            TID = tid[1:]
 
-            cn = terminal.find('cim:Terminal.ConnectivityNode', ns)
-            cnid = cn.attrib.get(ns['rdf'] + 'resource')
-            connodeid = cnid[1:]
-
-            if id == shuntid:
-                CNID = connodeid
+            if id == TID:
+                TermID = terminalID
                 break
             else:
                 pass
 
-        shnts = cec.Shunt(id, name, CE_type, ecid, CNID, Type=types)
+        shnts = cec.Shunt(id, name, CE_type, ecid, TermID, Type=types)
         shunts.append(shnts)
     return(shunts)
 
@@ -296,8 +306,6 @@ def transformer_data(root):
                     trafodict_sort[k] = trafodict[k]
                     break
 
-        # print(trafodict_sort)
-
         idz = list(trafodict_sort.keys())
         vlvl = list(trafodict_sort.values())
 
@@ -343,7 +351,20 @@ def load_data(root):
         types = 'CE'
         CE_type = 'Load'
 
-        lds = cec.Load(id, name, CE_type, ecid, Type=types)
+        for terminal in root.findall('cim:Terminal', ns):
+            # tendid = trafoend.attrib.get(ns['rdf'] + 'ID')
+
+            t = terminal.find('cim:Terminal.ConductingEquipment', ns)
+            tid = t.attrib.get(ns['rdf'] + 'resource')
+            TID = tid[1:]
+
+            if id == TID:
+                TermID = TID
+                break
+            else:
+                pass
+
+        lds = cec.Load(id, name, CE_type, ecid, TermID, Type=types)
         consumers.append(lds)
     return(consumers)
 
@@ -408,7 +429,20 @@ def generator_data(root):
         cosphi = generator.find('{' + ns['cim'] + '}' +
                                 'RotatingMachine.ratedPowerFactor')
 
-        lds = cec.Generator(id, name, CE_type, ecid, genid, PF=cosphi,
+        for terminal in root.findall('cim:Terminal', ns):
+            # tendid = trafoend.attrib.get(ns['rdf'] + 'ID')
+
+            t = terminal.find('cim:Terminal.ConductingEquipment', ns)
+            tid = t.attrib.get(ns['rdf'] + 'resource')
+            TID = tid[1:]
+
+            if id == TID:
+                TermID = TID
+                break
+            else:
+                pass
+
+        lds = cec.Generator(id, name, CE_type, ecid, TermID, genid, PF=cosphi,
                             Type=types)
         generators.append(lds)
     return(generators)

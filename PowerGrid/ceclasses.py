@@ -12,9 +12,6 @@ class BusBar(psc.ConductingEquipment):
         self.CID = EquipmentContainerID
         self.BaseVolt = BaseVolt
 
-    # def __repr__(self):
-    #     return(f'(ID = {self.ID}, Processed = {self.Processed})) \n')
-
 
 class Transformer(psc.ConductingEquipment):
     '''
@@ -31,11 +28,6 @@ class Transformer(psc.ConductingEquipment):
         self.V_hv = V_hv
         self.V_lv = V_lv
         self.S_n = S_n
-
-    # def __repr__(self):
-    #     return(f'(2-WAY-TRAFO:ID = {self.ID}, Voltage Levels = {self.V_hv}/ \
-    #            {self.V_lv} kV, S_n = {self.S_n}, \
-    #            Processed = {self.Processed})) \n')
 
 
 class Transformer3Way(psc.ConductingEquipment):
@@ -56,11 +48,6 @@ class Transformer3Way(psc.ConductingEquipment):
         self.V_lv = V_lv
         self.S_n = S_n
 
-    # def __repr__(self):
-    #     return(f'(3-WAY-TRAFO: ID = {self.ID}, Voltage Levels = {self.V_hv}/
-    #           {self.V_mv}/{self.V_lv} kV, S_n = {self.S_n}, \
-    #           Processed = {self.Processed})) \n')
-
 
 class Breaker(psc.ConductingEquipment):
     '''
@@ -76,48 +63,41 @@ class Breaker(psc.ConductingEquipment):
         self.ToID = ToID
         self.OpenState = OpenState
 
-    # def __repr__(self):
-    #     return(f'(ID = {self.ID}, OpenState = {self.OpenState}, \
-    #             Processed = {self.Processed})) \n')
-
 
 class Shunt(psc.ConductingEquipment):
     '''
     Shunt capacitor class.
     '''
-    def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
-                 ConNodeConnection, P_Shunt=0, Q_Shunt=0,
+    def __init__(self, ID, Name, CE_Type, EquipmentContainerID, TerminalID,
+                 P_Shunt=0, Q_Shunt=0,
                  Type='NotSpecified', Processed=False):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
+        self.TermID = TerminalID
         self.CID = EquipmentContainerID
-        self.CN = ConNodeConnection
         self.P_Shunt = P_Shunt
         self.Q_Shunt = Q_Shunt
-
-    # def __repr__(self):
-    #     return(f'(ID = {self.ID}, Processed = {self.Processed})) \n')
 
 
 class Load(psc.ConductingEquipment):
     '''
     Load class.
     '''
-    def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
+    def __init__(self, ID, Name, CE_Type, EquipmentContainerID, TerminalID,
                  P_Load=0, Q_Load=0,
                  Type='NotSpecified', Processed=False):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
+        self.TermID = TerminalID
         self.CID = EquipmentContainerID
         self.P_Load = P_Load
         self.Q_Load = Q_Load
 
-    # def __repr__(self):
-    #     return(f'(ID = {self.ID}, P = {self.P_Load} kV, Q = {self.Q_Load} \
-    #             kVAr, Processed = {self.Processed})) \n')
-
 
 class Line(psc.ConductingEquipment):
+    '''
+    Line class.
+    '''
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
                  FromID, ToID, Length,
                  Type='NotSpecified', Processed=False):
@@ -128,23 +108,19 @@ class Line(psc.ConductingEquipment):
         self.ToID = ToID
         self.Length = Length
 
-    # def __repr__(self):
-    #     return(f'(ID = {self.ID}, Length = {self.Length}, \
-    #            Processed = {self.Processed})) \n')
-
 
 class Generator(psc.ConductingEquipment):
-    def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
+    '''
+    Generator/Motor class.
+    '''
+    def __init__(self, ID, Name, CE_Type, EquipmentContainerID, TerminalID,
                  GeneratorID, P_Gen=0, Q_Gen=0, PF=1,
                  Type='NotSpecified', Processed=False):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
+        self.TermID = TerminalID
         self.CID = EquipmentContainerID
         self.GenID = GeneratorID
         self.P_Gen = P_Gen
         self.Q_Gen = Q_Gen
         self.PF = PF
-
-    # def __repr__(self):
-    #     return(f'(ID = {self.ID}, P = {self.P_Gen} kV, Q = {self.Q_Gen} kVAr,
-    #            Processed = {self.Processed})) \n')

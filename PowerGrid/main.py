@@ -3,7 +3,7 @@
 # Needed Libaries
 # import xmlread as xr
 # import gridcreator as gc
-import gridcreator2 as gc2
+import gridcreator as gc
 # import pandapower as pp
 import grid as g
 # from data import root
@@ -65,17 +65,15 @@ from data import all_data
 # --------------------------------------------------------------------------- #
 
 grid_data = all_data
-net, grid_data = gc2.grid_initializer(grid_data)
+net, grid_data = gc.grid_initializer(grid_data)
 
-# next = gc2.find_initial(grid_data)
-# print(next)
+print(net.bus)
 
-net, grid_data = gc2.grid_creator(net, grid_data)
+net, grid_data = gc.grid_creator(net, grid_data)
 
-print(grid_data)
+# print(grid_data)
 
-# print(net.bus)
-# print(net.line)
+print(net)
 
 g.plot_grid(net)
 
