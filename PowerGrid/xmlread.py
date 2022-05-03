@@ -9,8 +9,6 @@ from pathlib import Path
 
 # Power System Classes (Terminals, ConnectivityNodes and ConductingEquipments)
 import psclasses as psc
-
-# Conducting Equipment classes
 import ceclasses as cec
 
 ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',

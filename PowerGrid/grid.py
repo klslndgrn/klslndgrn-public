@@ -1,8 +1,6 @@
-# Importing PandaPower
+# Importing PandaPower, SimplePlot and Data
 import pandapower as pp
 from pandapower.plotting import simple_plot
-# import xmlread as xr
-# from data import root
 from data import all_data
 
 
@@ -45,9 +43,6 @@ def create_transformer(net, inputclass):
     # S_n = inputclass.S_n
     names = inputclass.Name
     std = '160 MVA 380/110 kV'
-
-    # print(f'Hv Bus = {hv_bus}')
-    # print(f'Lv Bus = {lv_bus}')
 
     transformer = pp.create_transformer(net, hv_bus, lv_bus, std, name=names)
     # sn_mva=S_n, vn_hv_kv=V_hv, vn_lv_kv=V_lv,
@@ -119,9 +114,6 @@ def create_line(net, inputclass):
     length = inputclass.Length
     names = inputclass.Name
     std = 'NAYY 4x50 SE'
-
-    # print(f'From Bus = {from_bus}')
-    # print(f'To Bus = {to_bus}')
 
     line = pp.create_line(net, from_bus, to_bus, length, std, name=names)
 

@@ -36,21 +36,27 @@ def grid_creator(net, grid_data):
     for node in grid_data:
         if node.Type == 'CE':
             if node.CE_Type == 'Breaker':
+                # Creating Switches ---------------- #
                 g.create_switch(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Shunt':
+                # Creating Shunts ------------------ #
                 g.create_shunt(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Transformer':
+                # Creating Transformers ------------ #
                 g.create_transformer(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Line':
+                # Creating Lines ------------------- #
                 g.create_line(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Load':
+                # Creating Loads ------------------- #
                 g.create_load(net, node)
                 flag_step(node)
             elif node.CE_Type == 'Generator':
+                # Creating Generators -------------- #
                 g.create_generator(net, node)
                 flag_step(node)
             else:
