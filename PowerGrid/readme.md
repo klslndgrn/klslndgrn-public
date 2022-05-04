@@ -1,20 +1,34 @@
 # Assignment 1 - EH2745
 
-Author: Klas Lindgren
+## Author
 
-Subject: The first assignment involves reading and parsing a CIM data file representing a small power system. You are then tasked with storing the data and analyzing it to generate a model of the grid using the Pandapower toolbox.
+Klas Lindgren
 
-This file requires iGraph (pip install igraph)
+## Subject
+
+The first assignment involves reading and parsing a CIM data file
+representing a small power system. You are then tasked with storing the data
+and analyzing it to generate a model of the grid using the Pandapower toolbox.
+
+## PLEASE NOTE THAT
+
+This file requires iGraph (pip install igraph).
 
 ## File Descriptions
 
-### main.py
+### main.py and mainGUI.py
 
-This file contains the main structure of the program. Which includes...
+"main.py" contains the main structure of the program. Which includes a function
+that retreivs equipment data from an EQ XML-file, create_data_lists(), and
+another function that updates these equipments based on a SSH XML-file,
+update_data_lists(). This file also contains a function, grid_initializer(),
+that creates buses and nodes from conducting equipment "BusBars" and remaining
+nodes from connectivity nodes.
 
-### xml_read.py
+"mainGUI.py" is the file that runs "main.py" but with a user GUI. "mainGUI.py"
+needs to be runned for the GUI to appear.
 
-This file contains the program which loads and extracts information from the XML-files.
+Descriptions of the other files can be found below.
 
 ### psclasses.py
 
@@ -24,10 +38,10 @@ This file ....
 
 This file ....
 
+### eqread.py
+
+This file contains the program which loads and extracts information from the XML-files.
+
 ### grid.py
 
 This file .... PandaPower functions.
-
-#### ADD
-
-Add GUI -> Save as...

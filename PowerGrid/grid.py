@@ -84,8 +84,10 @@ def create_bus(net, inputclass):
     names = inputclass.Name
     basevolt = inputclass.BaseVolt
     types = 'b'
+    In_Service = inputclass.InService
 
-    bus = pp.create_bus(net, vn_kv=basevolt, type=types, name=names)
+    bus = pp.create_bus(net, vn_kv=basevolt, type=types, name=names,
+                        in_service=In_Service)
 
     return(bus)
 
@@ -99,8 +101,10 @@ def create_node(net, inputclass):
     names = inputclass.Name
     basevolt = inputclass.BaseVolt
     types = 'n'
+    In_Service = inputclass.InService
 
-    bus = pp.create_bus(net, vn_kv=basevolt, type=types, name=names)
+    bus = pp.create_bus(net, vn_kv=basevolt, type=types, name=names,
+                        in_service=In_Service)
 
     return(bus)
 
@@ -234,5 +238,9 @@ def plot_grid(net):
                        plot_loads=True,
                        load_size=2,
                        plot_gens=True,
-                       gen_size=2)
+                       gen_size=2,
+                       plot_line_switches=True,
+                       switch_color='green',
+                       line_color='red',
+                       switch_size=1)
     return(plot)

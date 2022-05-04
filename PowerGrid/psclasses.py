@@ -35,11 +35,12 @@ class ConnectivityNode(PSEquipment):
     A subclass to PSEquipment that creates ConnectivityNode variables.
     '''
     def __init__(self, ID, Name, ConnectivityNodeContainerID,
-                 BaseVolt, Type, Processed=False):
+                 BaseVolt, Type, InService=True, Processed=False):
         super().__init__(ID, Name, Type, Processed)
 
         self.CID = ConnectivityNodeContainerID
         self.BaseVolt = BaseVolt
+        self.InService = InService
 
 
 class ConductingEquipment(PSEquipment):

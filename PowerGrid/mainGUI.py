@@ -22,7 +22,7 @@ class FileBrowser(GUI_prerequisite.Prerequisite):
         self.topFrame.grid()
 
         Ipb1 = Input(self.topFrame, 0, 0, "EQ")
-        # Ipb2 = Input(self.topFrame, 1, 0, "SSH")
+        Ipb2 = Input(self.topFrame, 1, 0, "SSH")
         # Opb2 = Output(self.topFrame, 2, 0, "Save Output")
 
         self.bottom_frame = tk.Frame(self.master)
@@ -36,14 +36,14 @@ class FileBrowser(GUI_prerequisite.Prerequisite):
                                    width=self.button_width,
                                    height=self.button_height,
                                    command=lambda:
-                                       self.compute_files(Ipb1.value.get()))
-        # Ipb2.value.get()
+                                       self.compute_files(Ipb1.value.get(),
+                                                          Ipb2.value.get()))
         self.go_button.grid(row=2, column=1, pady=self.spacingY,
                             padx=self.spacingX)
 
         self.master.mainloop()
 
-    def compute_files(self, file):
+    def compute_files(self, eq_file, ssh_file):
         # Call on main function
         # Use return value as input for text box
         # Där Ipb1/2.value = path to file
@@ -53,7 +53,7 @@ class FileBrowser(GUI_prerequisite.Prerequisite):
         # print(type(str(file)))
         # x = str(file)
         # print(x)
-        main.main(file)
+        main.main(eq_file, ssh_file)
 
 
 class InputRow(GUI_prerequisite.Prerequisite):

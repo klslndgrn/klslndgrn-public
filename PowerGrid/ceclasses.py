@@ -6,11 +6,13 @@ class BusBar(psc.ConductingEquipment):
     BusBar class.
     '''
     def __init__(self, ID, Name, CE_Type, EquipmentContainerID,
-                 Type='NotSpecified', BaseVolt=0, Processed=False):
+                 Type='NotSpecified', BaseVolt=0, InService=True,
+                 Processed=False):
         super().__init__(ID, Name, CE_Type, Type, Processed)
 
         self.CID = EquipmentContainerID
         self.BaseVolt = BaseVolt
+        self.InService = InService
 
 
 class Transformer(psc.ConductingEquipment):

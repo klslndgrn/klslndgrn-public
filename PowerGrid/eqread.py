@@ -1,38 +1,46 @@
 '''
 This file contains functions to extract data from XML files
 '''
-# XML library
-import xml.etree.ElementTree as ET
 
-# To find path for files
-from pathlib import Path
-
-# Power System Classes (Terminals, ConnectivityNodes and ConductingEquipments)
-import psclasses as psc
-import ceclasses as cec
-
-ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
-      'entsoe': 'http://entsoe.eu/CIM/SchemaExtension/3/1#',
-      'rdf': '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'}
+import xml.etree.ElementTree as ET  # XML library
+import psclasses as psc  # PowerSystemClasses
+import ceclasses as cec  # ConductingEquipmentClasses
+from pathlib import Path  # Finding absolute path
 
 
-def read_file(file):
+def create_data_lists(eq_file):
+    # Accessing root of XML file ------------------- #
+    root_eq = read_file(eq_file)
+    # Creating data from root ---------------------- #
+    eq_data = all_data(root_eq)
+    return(eq_data)
+
+
+def read_file(xml_file):
     '''
     Creating an XML tree from file and accessing the root.
     '''
     # Finding directory
-    if "/" not in file:
-        filestr = 'Files/' + file
+    if "/" not in xml_file:
+        filestr = 'Files/' + xml_file
         script_location = Path(__file__).absolute().parent
         Xfile = script_location / filestr
         # Creating an XML tree from file.
         tree = ET.parse(Xfile)
     else:
-        xfile = file
+        xfile = xml_file
         tree = ET.parse(xfile)
     # Accesssing and returning root in XML tree.
     root = tree.getroot()
     return(root)
+
+
+# --------------------------------------------------------------------------- #
+# ------------------------ Needed for XML extraction ------------------------ #
+# --------------------------------------------------------------------------- #
+ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
+      'entsoe': 'http://entsoe.eu/CIM/SchemaExtension/3/1#',
+      'rdf': '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'}
 
 
 # --------------------------------------------------------------------------- #
@@ -430,41 +438,3 @@ def all_data(root):
         for j in i:
             all_new.append(j)
     return(all_new)
-
-
-# --------------------------------------------------------------------------- #
-# ------------------------ Data --------------------------------------------- #
-# --------------------------------------------------------------------------- #
-
-def unique_equipment(root):
-    unieq = []
-    for equipment in root:
-        if (ns['cim'] in equipment.tag):
-            eq = equipment.tag.replace("{" + ns['cim'] + "}", "")
-            if eq not in unieq:
-                unieq.append(eq)
-    return(unieq)
-
-
-def find_connected_equipment(root, eqlist):
-    equipment = []
-    for id in eqlist:
-        for child in root:
-            tg = child.tag.replace("{" + ns['cim'] + "}", "")
-            attrID = child.attrib.get(ns['rdf'] + 'ID')
-
-            if id == attrID and tg not in equipment:
-                equipment.append(tg)
-    return(equipment)
-
-
-def find_connected_equipment_CN(root, eqlist):
-    equipment = []
-    for id in eqlist:
-        for child in root:
-            tg = child.tag.replace("{" + ns['cim'] + "}", "")
-            attrID = child.attrib.get(ns['rdf'] + 'ID')
-
-            if id == attrID and tg not in equipment:
-                equipment.append(tg)
-    return(equipment)
