@@ -12,6 +12,9 @@ and analyzing it to generate a model of the grid using the Pandapower toolbox.
 
 ## PLEASE NOTE THAT
 
+This project is either started in "main.py" without GUI, or "mainGUI.py" to
+start with GUI.
+
 This file requires iGraph (pip install igraph) to show the grid with a
 visual presentation.
 
