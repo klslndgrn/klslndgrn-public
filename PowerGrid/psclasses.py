@@ -1,9 +1,11 @@
 class PSEquipment():
     '''
-    A class containing 3 main types of equipment. Terminals,
-    Connectivity Nodes and Conducting Equipment.
-    Conducting Equipment is
+    A class containing 3 main types of equipment. Terminals, Connectivity Nodes
+    and Conducting Equipment. Conducting Equipment in turn have subclasses
+    containing data for each equipment.
     '''
+    GridData = []
+
     def __init__(self, ID, Name, Type='NotSpecified', Processed=False):
 
         self.ID = ID

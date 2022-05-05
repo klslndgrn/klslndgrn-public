@@ -1,4 +1,5 @@
 import eqread as eqr
+import gridcreator as gc
 
 # --------------------------------------------------------------------------- #
 # ------------------------ Needed for XML extraction ------------------------ #
@@ -12,6 +13,10 @@ ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
 # ------------------------ Updating equipment file -------------------------- #
 # --------------------------------------------------------------------------- #
 def update_data_lists(eq_file, ssh_file):
+    '''
+    A function to update equipment with SSH-data.
+    Each specific function is described below.
+    '''
     # Accessing root of XML file ------------------- #
     root_ssh = eqr.read_file(ssh_file)
 
@@ -34,6 +39,9 @@ def update_data_lists(eq_file, ssh_file):
 
 # BREAKERS ----------------------------------------- #
 def updating_breakers(eq_file, root):
+    '''
+    A function to update the breaker status.
+    '''
     for eq in eq_file:
         if eq.Type == 'CE' and eq.CE_Type == 'Breaker':
             for breaker in root.findall('cim:Breaker', ns):
@@ -55,6 +63,9 @@ def updating_breakers(eq_file, root):
 
 
 def updating_loads(eq_file, root):
+    '''
+    A function to update the loads.
+    '''
     for eq in eq_file:
         if eq.Type == 'CE' and eq.CE_Type == 'Load':
             for load in root.findall('cim:EnergyConsumer', ns):
@@ -82,6 +93,9 @@ def updating_loads(eq_file, root):
 
 
 def updating_generators(eq_file, root):
+    '''
+    A function to update the generators.
+    '''
     for eq in eq_file:
         if eq.Type == 'CE' and eq.CE_Type == 'Generator':
             for gen in root.findall('cim:SynchronousMachine', ns):
@@ -109,6 +123,9 @@ def updating_generators(eq_file, root):
 
 
 def updating_terminals(eq_file, root):
+    '''
+    A function to update the terminals.
+    '''
     for eq in eq_file:
         if eq.Type == 'Te':
             for term in root.findall('cim:Terminal', ns):
@@ -124,9 +141,11 @@ def updating_terminals(eq_file, root):
                     for equip in eq_file:
                         if equip.ID == cn_id:
                             equip.InService = in_serv
+                            gc.flag_step(equip)
                             # print(f'{equip.Name}, {equip.InService}')
                         if equip.ID == ce_id and equip.CE_Type == 'BusBar':
                             equip.InService = in_serv
+                            gc.flag_step(equip)
                             # print(f'{equip.Name}, {equip.InService}')
                 else:
                     pass

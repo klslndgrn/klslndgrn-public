@@ -1,18 +1,20 @@
-# Importing PandaPower, SimplePlot and Data
 import pandapower as pp
 from pandapower.plotting import simple_plot
+from pandapower.plotting import create_generic_coordinates
 
 
 def create_grid():
     '''
-    Grid:
-        pp.create_empty_network(...)
+    Creating an empty grid using pp.create_empty_network(...).
     '''
     net = pp.create_empty_network()  # create an empty network
     return(net)
 
 
 def find_element_from_id(net, TermID, all_data):
+    '''
+    Find PandaPower network ID from TerminalID.
+    '''
     type = 'bus'
     for i in all_data:
         if i.ID == TermID:
@@ -30,7 +32,7 @@ def find_element_from_id(net, TermID, all_data):
 
 def create_transformer(net, inputclass, all_data):
     '''
-    Creating a Transformer (PowerTransformer) with pp.create_transformer(...)
+    Creating a Transformer (PowerTransformer) with pp.create_transformer(...).
     '''
 
     hv_bus_ID = inputclass.TermID1
@@ -53,7 +55,7 @@ def create_transformer(net, inputclass, all_data):
 
 def create_transformer_3w(net, inputclass, all_data):
     '''
-    Creating a Transformer (PowerTransformer) with pp.create_transformer(...)
+    Creating a Transformer (PowerTransformer) with pp.create_transformer(...).
     '''
 
     hv_bus_ID = inputclass.TermID1
@@ -78,7 +80,7 @@ def create_transformer_3w(net, inputclass, all_data):
 
 def create_bus(net, inputclass):
     '''
-    Creating a BusBarSection with pp.create_bus(...)
+    Creating a BusBarSection with pp.create_bus(...).
     '''
 
     names = inputclass.Name
@@ -94,8 +96,7 @@ def create_bus(net, inputclass):
 
 def create_node(net, inputclass):
     '''
-    BusBarSection
-    pp.create_bus(...)
+    Creating BusBarSection but set as NODE with pp.create_bus(...)
     '''
 
     names = inputclass.Name
@@ -111,8 +112,7 @@ def create_node(net, inputclass):
 
 def create_line(net, inputclass, all_data):
     '''
-    Line (ACLineSegment)::
-    pp.create_line(...add())
+    Creating lines (ACLineSegment) with pp.create_line(...)
     '''
 
     from_bus_ID = inputclass.FromID
@@ -132,8 +132,7 @@ def create_line(net, inputclass, all_data):
 
 def create_load(net, inputclass, all_data):
     '''
-    Load (EnergyConsumer):
-    pp.create_load(...)
+    Creating loads (EnergyConsumer) with pp.create_load(...).
     '''
 
     bus_idx_ID = inputclass.TermID
@@ -151,8 +150,7 @@ def create_load(net, inputclass, all_data):
 
 def create_shunt(net, inputclass, all_data):
     '''
-    Shunt (LinearShuntCompensator):
-    pp.create_shunt(net, bus, q_mvar, name=None, index=None)
+    Creating shunts (LinearShuntCompensator) with pp.create_shunt(...).
     '''
 
     bus_idx_ID = inputclass.TermID
@@ -170,8 +168,7 @@ def create_shunt(net, inputclass, all_data):
 
 def create_switch(net, inputclass, all_data):
     '''
-    Switch/Breaker (Breaker):
-    pp.create_switch(...)
+    Creating switches/breakers with pp.create_switch(...).
     '''
 
     from_bus_ID = inputclass.FromID
@@ -180,7 +177,7 @@ def create_switch(net, inputclass, all_data):
     from_bus = find_element_from_id(net, from_bus_ID, all_data)
     to_bus = find_element_from_id(net, to_bus_ID, all_data)
 
-    state = not inputclass.OpenState
+    state = inputclass.OpenState
     names = inputclass.Name
     ettype = 'b'
     types = 'CB'
@@ -193,11 +190,7 @@ def create_switch(net, inputclass, all_data):
 
 def create_motor(net, inputclass, all_data):
     '''
-    Motor (SynchronousMachine):
-    pp.create_motor(...)
-        or
-    Generator:
-    pp.create_gen(...)
+    Creating motor (SynchronousMachine) with pp.create_motor(...).
     '''
 
     bus_idx_ID = inputclass.TermID
@@ -215,8 +208,7 @@ def create_motor(net, inputclass, all_data):
 
 def create_generator(net, inputclass, all_data):
     '''
-    Generator:
-    pp.create_gen(...)
+    Creating generators with pp.create_gen(...).
     '''
 
     bus_idx_ID = inputclass.TermID
@@ -234,6 +226,10 @@ def create_generator(net, inputclass, all_data):
 
 
 def plot_grid(net):
+    '''
+    Using SimplePlot to plot generated network.
+    '''
+    net = create_generic_coordinates(net)
     plot = simple_plot(net,
                        plot_loads=True,
                        load_size=2,

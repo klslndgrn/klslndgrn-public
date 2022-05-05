@@ -9,6 +9,9 @@ from pathlib import Path  # Finding absolute path
 
 
 def create_data_lists(eq_file):
+    '''
+    Function to create data lists containing equipment data.
+    '''
     # Accessing root of XML file ------------------- #
     root_eq = read_file(eq_file)
     # Creating data from root ---------------------- #
@@ -48,8 +51,9 @@ ns = {'cim': 'http://iec.ch/TC57/2013/CIM-schema-cim16#',
 # --------------------------------------------------------------------------- #
 def terminal_data(root):
     '''
-    Searches for "cim:Terminal" which is the main block,
-    and "cim:PowerTransformerEnd"
+    Function to search for "cim:Terminal" which is the main block,
+    and "cim:PowerTransformerEnd" for connections.
+    Creating classes for each terminal.
     '''
     terminals = []
     for terminal in root.findall('cim:Terminal', ns):
@@ -87,6 +91,9 @@ def terminal_data(root):
 # ------------------------ CN: CONNECTIVITY NODES --------------------------- #
 # --------------------------------------------------------------------------- #
 def connectivity_node_data(root):
+    '''
+    Functions to gather data regarding CN's as well as creating classes.
+    '''
     connectivitynodes = []
     for cn in root.findall('cim:ConnectivityNode', ns):
 
@@ -103,10 +110,11 @@ def connectivity_node_data(root):
         for voltlevel in root.findall('cim:VoltageLevel', ns):
             vlid = voltlevel.attrib.get(ns['rdf'] + 'ID')
             if vlid == cid:
-                v_n = voltlevel.find('{' + ns['cim'] + '}' +
-                                     'cim:IdentifiedObject.name')
+                s = '{' + ns['cim'] + '}' + 'IdentifiedObject.name'
+                v_n = voltlevel.find(s).text
+                V_n = int(float(v_n))
 
-        conode = psc.ConnectivityNode(id, name, cid, v_n, Type=types)
+        conode = psc.ConnectivityNode(id, name, cid, V_n, Type=types)
         connectivitynodes.append(conode)
     return(connectivitynodes)
 
@@ -115,6 +123,9 @@ def connectivity_node_data(root):
 # ------------------------ CE: CONDUCTION EQUIPMENT ------------------------- #
 # --------------------------------------------------------------------------- #
 def busbar_data(root):
+    '''
+    Gathering data and creating classes for busbars.
+    '''
     busbars = []
     for bbs in root.findall('cim:BusbarSection', ns):
 
@@ -129,12 +140,23 @@ def busbar_data(root):
         types = 'CE'
         CE_type = 'BusBar'
 
-        busbarcon = cec.BusBar(id, name, CE_type, ecid, Type=types)
+        for voltlevel in root.findall('cim:VoltageLevel', ns):
+            vlid = voltlevel.attrib.get(ns['rdf'] + 'ID')
+            if vlid == ecid:
+                s = '{' + ns['cim'] + '}' + 'IdentifiedObject.name'
+                v_n = voltlevel.find(s).text
+                V_n = int(float(v_n))
+
+        busbarcon = cec.BusBar(id, name, CE_type, ecid, BaseVolt=V_n,
+                               Type=types)
         busbars.append(busbarcon)
     return(busbars)
 
 
 def breaker_data(root):
+    '''
+    Gathering data and creating classes for breakers.
+    '''
     breakers = []
     for breaker in root.findall('cim:Breaker', ns):
 
@@ -176,6 +198,9 @@ def breaker_data(root):
 
 
 def shunt_data(root):
+    '''
+    Gathering data and creating classes for shunts.
+    '''
     shunts = []
     for shunt in root.findall('cim:LinearShuntCompensator', ns):
 
@@ -209,6 +234,9 @@ def shunt_data(root):
 
 
 def transformer_data(root):
+    '''
+    Gathering data and creating classes for transformers.
+    '''
     transformers = []
     for transformer in root.findall('cim:PowerTransformer', ns):
         id = transformer.attrib.get(ns['rdf'] + 'ID')
@@ -288,6 +316,9 @@ def transformer_data(root):
 
 
 def load_data(root):
+    '''
+    Gathering data and creating classes for loads.
+    '''
     consumers = []
     for consumer in root.findall('cim:EnergyConsumer', ns):
 
@@ -322,7 +353,9 @@ def load_data(root):
 
 
 def line_data(root):
-    'Length = "cim:Conductor.length>45.000000"'
+    '''
+    Gathering data and creating classes for lines.
+    '''
     lines = []
     for line in root.findall('cim:ACLineSegment', ns):
 
@@ -359,6 +392,9 @@ def line_data(root):
 
 
 def generator_data(root):
+    '''
+    Gathering data and creating classes for generators.
+    '''
     generators = []
     for generator in root.findall('cim:SynchronousMachine', ns):
 
@@ -408,6 +444,9 @@ def generator_data(root):
 
 
 def conducting_equipment_data(root):
+    '''
+    Gathering all CE data into one list.
+    '''
     CE = []
     CE_new = []
     CE.append(busbar_data(root))
@@ -428,6 +467,9 @@ def conducting_equipment_data(root):
 # ------------------------ ALL EQUIPMENT ------------------------------------ #
 # --------------------------------------------------------------------------- #
 def all_data(root):
+    '''
+    Gathering all data into one list.
+    '''
     all = []
     all_new = []
     all.append(terminal_data(root))
