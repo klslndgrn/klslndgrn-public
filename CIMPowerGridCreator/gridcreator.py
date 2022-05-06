@@ -16,8 +16,10 @@ def grid_initializer(grid_data):
     First an empty grid is created, then BusBars are created and thereafter
     are nodes created without duplicates of the busbars.
     '''
+
     # Creating an empty grid ----------------------- #
     net = g.create_grid()
+
     # Creating BusBars ----------------------------- #
     name_list = []
     for node in grid_data:
@@ -31,6 +33,7 @@ def grid_initializer(grid_data):
                 pass
         else:
             pass
+
     # Creating Nodes ------------------------------- #
     for node in grid_data:
         if node.Type == 'CN' and node.Name not in name_list:
@@ -40,6 +43,7 @@ def grid_initializer(grid_data):
         else:
             flag_step(node)
             pass
+
     # Returning grid and grid data ----------------- #
     # (with updated flags) ------------------------- #
     return(net, grid_data)

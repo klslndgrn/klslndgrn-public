@@ -120,12 +120,17 @@ def create_line(net, inputclass, all_data):
 
     from_bus = find_element_from_id(net, from_bus_ID, all_data)
     to_bus = find_element_from_id(net, to_bus_ID, all_data)
-
+    
     length = inputclass.Length
     names = inputclass.Name
     std = 'NAYY 4x50 SE'
-
-    line = pp.create_line(net, from_bus, to_bus, length, std, name=names)
+    
+    # If line is END with no ConnectivityNode connected to one end. 
+    if to_bus == None:
+        x = pp.create_bus(net, vn_kv=0, type='n')
+        line = pp.create_line(net, from_bus, x, length, std, name=names)
+    else:
+        line = pp.create_line(net, from_bus, to_bus, length, std, name=names)
 
     return(line)
 

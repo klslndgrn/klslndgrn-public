@@ -50,11 +50,14 @@ if __name__ == "__main__":
     Please put files in the Files folder and reference them by name below.
     '''
 
-    # eq_file = 'Assignment_EQ_reduced.xml'
-    # ssh_file = 'Assignment_SSH_reduced.xml'
+    eq_file = 'Assignment_EQ_reduced.xml'
+    ssh_file = 'Assignment_SSH_reduced.xml'
 
-    eq_file = 'MicroGridTestConfiguration_T1_BE_EQ_V2.xml'
-    ssh_file = 'MicroGridTestConfiguration_T1_BE_SSH_V2.xml'
+    # eq_file = 'MicroGridTestConfiguration_T1_BE_EQ_V2.xml'
+    # ssh_file = 'MicroGridTestConfiguration_T1_BE_SSH_V2.xml'
+    
+    # eq_file = 'MicroGridTestConfiguration_T1_NL_EQ_V2.xml'
+    # ssh_file = 'MicroGridTestConfiguration_T1_NL_SSH_V2.xml'
 
     net, status = main(eq_file, ssh_file)
     print(f'All XML-data processed = {status}')
