@@ -5,7 +5,7 @@ import eqread as eqr
 import sshread as shr
 
 
-def main(eq_file, ssh_file):  # (eq_file, shh_file)
+def main(eq_file, ssh_file):
     '''
     Main function which reads EQ and SSH XML as well as creating the grid in
     PandaPower.

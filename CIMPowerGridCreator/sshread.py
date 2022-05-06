@@ -37,7 +37,6 @@ def update_data_lists(eq_file, ssh_file):
     return(grid_data)
 
 
-# BREAKERS ----------------------------------------- #
 def updating_breakers(eq_file, root):
     '''
     A function to update the breaker status.
