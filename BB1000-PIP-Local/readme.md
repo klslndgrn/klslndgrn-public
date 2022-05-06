@@ -1,3 +1,3 @@
-# BB1000
+# BB1000 - Programming in Python
 
-A fork and completion of the exercises in BB1000 taken at KTH.
+The completed exercises in BB1000 taken at KTH.
