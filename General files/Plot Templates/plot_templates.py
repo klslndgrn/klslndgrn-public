@@ -66,7 +66,7 @@ plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.1) # MINOR GRI
 plt.minorticks_on()
 # plt.tick_params(labelcolor='k', labelsize='large', width=1) # TICK FORMAT
 # ---- LEGEND ---- #
-# Insert legend here
+plt.legend()
 # ---- LABELS ---- #
 plt.title(ttl, usetex = True)
 plt.xlabel(xlbl, usetex = True)
