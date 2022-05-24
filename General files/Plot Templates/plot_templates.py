@@ -9,7 +9,7 @@ Linestyles as:
         'dashed' same as '--'
         'dashdot' same as '-.'
 Base-colors as:
-    color = 
+    color =
         'b' as blue
         'g' as green
         'r' as red
@@ -42,8 +42,8 @@ x = np.linspace(-4*np.pi, 4*np.pi, num=num_points)
 f1 = np.exp(x/10)*np.sin(x)*np.cos(x)
 f2 = np.exp(2*x/10)*np.sin(2*x)*np.cos(2*x)
 
-xax = [-10,10]
-yax = [-5,5]
+xax = [-10, 10]
+yax = [-5, 5]
 
 ttl = 'TITLE'
 xlbl = 'X-LABEL'
@@ -51,26 +51,30 @@ ylbl = 'Y-LABEL'
 
 # ------------------ #
 # ---- PLOTTING ---- #
-fig = plt.figure('PLOT X',figsize=(7,5))
+fig = plt.figure('PLOT X',
+                 figsize=(7, 5))
 # ------------------ #
 # ---- PLOTS ---- #
-plt.plot(x, f1, label = 'f1')
-plt.plot(x, f2, label = 'f2')
+plt.plot(x, f1, label='f1')
+plt.plot(x, f2, label='f2')
 # ---- AXIS ---- #
-plt.xlim(xax); plt.ylim(yax) # XLIM and YLIM
-plt.axhline(y = 0, color = 'k', linestyle = '-', alpha=0.5) # X-AXIS
-plt.axvline(x = 0, color = 'k', linestyle = '-', alpha=0.5) # Y-AXIS
+plt.xlim(xax)  # XLIM
+plt.ylim(yax)  # YLIM
+plt.axhline(y=0, color='k', linestyle='-', alpha=0.5)  # X-AXIS
+plt.axvline(x=0, color='k', linestyle='-', alpha=0.5)  # Y-AXIS
 # ---- FORMATTING ---- #
-plt.grid(b=True, which='major', color='k', linestyle='-', alpha=0.3) # MAJOR GRID
-plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.1) # MINOR GRID
+plt.grid(b=True, which='major',
+         color='k', linestyle='-', alpha=0.3)  # MAJOR GRID
+plt.grid(b=True, which='minor',
+         color='k', linestyle='-', alpha=0.1)  # MINOR GRID
 plt.minorticks_on()
 # plt.tick_params(labelcolor='k', labelsize='large', width=1) # TICK FORMAT
 # ---- LEGEND ---- #
 plt.legend()
 # ---- LABELS ---- #
-plt.title(ttl, usetex = True)
-plt.xlabel(xlbl, usetex = True)
-plt.ylabel(ylbl, usetex = True)
+plt.title(ttl, usetex=True)
+plt.xlabel(xlbl, usetex=True)
+plt.ylabel(ylbl, usetex=True)
 # ---- SHOW PLOT ---- #
 plt.show()
 # ---- SAVE PLOT ---- #

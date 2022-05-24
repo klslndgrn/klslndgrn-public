@@ -15,8 +15,9 @@ and analyzing it to generate a model of the grid using the Pandapower toolbox.
 This project is either started in "main.py" without GUI, or "mainGUI.py" to
 start with GUI.
 
-This file requires iGraph (pip install igraph) to show the grid with a
-visual presentation.
+This file requires TQDM (pip install tqdm) to show a progress bar for the
+algorithm. TQDM means "progress" in Arabic. This is usually included in the
+conda environment.
 
 ## File Descriptions
 
