@@ -164,6 +164,7 @@ def move_clusters():
                 pass
 
         if clstr.DPs == 0:
+            # clstr.X_coords unchanged!
             pass
         else:
             new_Va = new_Va / clstr.DPs
