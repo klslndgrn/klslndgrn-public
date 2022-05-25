@@ -168,13 +168,11 @@ def move_clusters():
         else:
             new_Va = new_Va / clstr.DPs
             new_Vm = new_Vm / clstr.DPs
-
-        # print(np.linalg.norm(np.array(clstr.X_coords) - new_Va))
-        # print(np.linalg.norm(np.array(clstr.X_coords) - new_Va))
-
-        clstr.X_coords = new_Va.tolist()
-        clstr.Y_coords = new_Vm.tolist()
-        # print('Cluster moved! ---------------------------------------------')
+            # print(np.linalg.norm(np.array(clstr.X_coords) - new_Va))
+            # print(np.linalg.norm(np.array(clstr.X_coords) - new_Va))
+            clstr.X_coords = new_Va.tolist()
+            clstr.Y_coords = new_Vm.tolist()
+            # print('Cluster moved!')
 
 
 def set_datapoint_to_cluster():
@@ -211,6 +209,10 @@ def find_distances():
             dtpnt.Dist2Clust.append(dist)
 
 
+# --------------------------------------------------------------------------- #
+# Generating datapoints and random clusters --------------------------------- #
+# --------------------------------------------------------------------------- #
+
 def generate_random_clusters(num, vm_max, vm_min, va_max, va_min):
     '''
     Generate random clusters between inside an interval of the maximum and
@@ -223,12 +225,16 @@ def generate_random_clusters(num, vm_max, vm_min, va_max, va_min):
         x_vals = []
         y_vals = []
         for max, min in zip(va_max, va_min):
-            x_vals.append(random.uniform(min, max))
+            x_val = random.uniform(min, max)
+            x_vals.append(x_val)
         for max, min in zip(vm_max, vm_min):
-            y_vals.append(random.uniform(min, max))
+            y_val = random.uniform(min, max)
+            y_vals.append(y_val)
+        # print(x_vals)
+        # print(y_vals)
 
-        x = kc.Cluster(x_vals, y_vals, Cnum=i)
-        kc.Cluster.temp_clusters.append(x)
+        k = kc.Cluster(x_vals, y_vals, Cnum=i)
+        kc.Cluster.temp_clusters.append(k)
 
 
 def generate_data_points(vm_norm, va_norm, events):
@@ -250,6 +256,10 @@ def generate_data_points(vm_norm, va_norm, events):
         x = kc.DataPoint(x_vals, y_vals, DPnum=dp_number, Ev_type=ev_type)
         kc.DataPoint.datapoints.append(x)
 
+
+# --------------------------------------------------------------------------- #
+# Loop prerequisites -------------------------------------------------------- #
+# --------------------------------------------------------------------------- #
 
 def loop_prerequisistes():
     '''
@@ -278,7 +288,7 @@ def loop2_prerequisistes():
 # --------------------------------------------------------------------------- #
 
 def plot_elbow(clstr_scores):
-    x = range(1, len(clstr_scores)+1)
+    x = list(range(1, len(clstr_scores)+1))
     y = clstr_scores
 
     xax = [0, len(clstr_scores)+1]

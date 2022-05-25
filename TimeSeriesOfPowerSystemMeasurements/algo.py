@@ -7,12 +7,13 @@ import kclasses as kc
 # Main function ------------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
-def k_means_clustering(cluster_count=18, iterations=100):
+def k_means_clustering(cluster_count=8, iterations=20):
     '''
     The main k-Means clustering algorithm function. It is possible to change
     the number of iterations of which the randomizer created clusters. 100 is
     set as standard and acts as a prevention for local optimas.
     '''
+    print('\n------ k-Means clustering algorithm is started: ------\n')
     # Retreiving ORIGINAL and NORMALIZED dataframes.
     vm, va, vm_norm, va_norm, events = output.retreive_dataframe()
 
@@ -20,12 +21,12 @@ def k_means_clustering(cluster_count=18, iterations=100):
     ad.generate_data_points(vm_norm, va_norm, events)
 
     # Starting k-Means Clustering algorithm.
-    clstr_score, kc.Cluster.clusters = k_means_algo(vm_norm,
-                                                    va_norm,
-                                                    iterations,
-                                                    cluster_count)
+    cluster_score, cluster_dict, datapoint_list = k_means_algo(vm_norm,
+                                                               va_norm,
+                                                               iterations,
+                                                               cluster_count)
 
-    return(clstr_score, kc.Cluster.clusters)
+    return(cluster_score, cluster_dict, datapoint_list)
 
 
 # --------------------------------------------------------------------------- #
@@ -46,6 +47,7 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
     num, J, Jprev, tol, loop = ad.loop_prerequisistes()
 
     while loop is True:
+
         print(f'New loop to create {num} out of {cluster_count+2} clusters \
 ({iterations} iterations).')
         Jprev = J
@@ -77,8 +79,10 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
     # print(kc.Cluster.clusters)
     # print(kc.ClusterClasses.cluster_scores)
 
-    clstr_score = list(kc.ClusterClasses.cluster_scores.values())
-    return(clstr_score, kc.Cluster.clusters)
+    cluster_score = list(kc.ClusterClasses.cluster_scores.values())
+    cluster_dict = kc.Cluster.clusters
+    datapoint_list = kc.DataPoint.datapoints
+    return(cluster_score, cluster_dict, datapoint_list)
 
 
 # --------------------------------------------------------------------------- #
@@ -86,6 +90,9 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
 # --------------------------------------------------------------------------- #
 
 if __name__ == "__main__":
-    clstr_score, kc.Cluster.clusters = k_means_clustering()
-    output.algo_output_to_csv(kc.Cluster.clusters)
-    ad.plot_elbow(clstr_score)
+    cluster_score, cluster_dict, datapoint_list = k_means_clustering()
+    # print(kc.Cluster.clusters)
+    # print(kc.DataPoint.datapoints[-1])
+
+    # output.algo_output_to_csv(kc.Cluster.clusters)
+    ad.plot_elbow(cluster_score)

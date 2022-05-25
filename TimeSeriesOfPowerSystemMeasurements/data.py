@@ -27,7 +27,7 @@ def generate_status(samples):
     status = np.empty(samples)
     for i in range(samples):
         status[i] = random.randint(0, 1)
-    print(status)
+    # print(status)
     return(status)
 
 
@@ -44,6 +44,7 @@ def create_data_source(net, samples, test_sample):
     '''
     Main function to generate a data source from a different dataframes.
     '''
+    print('\n------ DataFrames for simulation inputs are created! ------\n')
     # Create DataFrames
     df = create_dataframe()
     df = loads_high_low(net, samples, df)

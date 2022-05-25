@@ -38,6 +38,7 @@ loads = [[5, 90, 30, 'Load Bus 5'],
 
 
 def grid_creator():
+    print('\n------ Grid is created: ------\n')
     net = create_grid()
     net = create_buses(net)
     net = create_loads(net)

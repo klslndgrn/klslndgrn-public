@@ -10,14 +10,17 @@ import os
 # Generating output --------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
-def create_output(net, ds, datanames, samples):
+def create_output(net, ds, datanames, samples, events):
     create_csv()
     data.output_writer(net, samples)
     cluster_counter = 0
+    print('\n------ Output from simulations are recorded: ------\n')
     for dtnm in datanames:
         if 'CLOSED' in dtnm or 'STATUS' in dtnm:
             pass
         else:
+            if cluster_counter > events-1:
+                break
             print(f'Algo name = {dtnm}')
 
             netx = net
@@ -117,33 +120,20 @@ def retreive_dataframe():
 
 
 def normalize_dataframe(vm, va):
-    max_vm, min_vm, max_va, min_va = finding_max_min_values(vm, va)
-    vm_norm = vm / max_vm
-    va_norm = va / max_va
+    max_vm, max_va, = finding_max_min_values(vm, va)
+    vm_norm = vm  # / max_vm
+    va_norm = va  # / max_va
     return(vm_norm, va_norm)
 
 
 def finding_max_min_values(vm, va):
-    # FIXME: Adjust so that the absolute maximum is returned!
-    max_vm = vm.max()
-    max_vm = max_vm.max()
+    max_vm = vm.max().max()
+    max_va = va.max().max()
+    min_va = va.min().min()
 
-    min_vm = vm.min()
-    min_vm = min_vm.min()
+    max_va = max([abs(max_va), abs(min_va)])
 
-    max_va = va.max()
-    max_va = max_va.max()
-
-    min_va = va.min()
-    min_va = min_va.min()
-
-    # print(f'Max Vm = {max_vm}')
-    # print(f'Min Vm = {min_vm}')
-    # print(f'Max Va = {max_va}')
-    # print(f'Min Va = {min_va}')
-
-    return(max_vm, min_vm,
-           max_va, min_va)
+    return(max_vm, max_va)
 
 
 # --------------------------------------------------------------------------- #
@@ -160,6 +150,11 @@ def finding_coordinate_interval(vm_norm, va_norm):
     va_max_list = va_max.values.tolist()
     va_min = va_norm.min()
     va_min_list = va_min.values.tolist()
+
+    # print(vm_max_list)
+    # print(vm_min_list)
+    # print(va_max_list)
+    # print(va_min_list)
 
     return(vm_max_list, vm_min_list,
            va_max_list, va_min_list)
