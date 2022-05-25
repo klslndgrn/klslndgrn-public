@@ -59,9 +59,9 @@ if __name__ == "__main__":
     print(cluster_score)
     print(datapoint_list[-1])
 
-    print(kc.Cluster.rand_clusters)
-    print(kc.Cluster.rand_clusters.max())
-    print(kc.Cluster.rand_clusters.min())
+    # print(kc.Cluster.rand_clusters)
+    print(f'Max Vm/Va: {kc.Cluster.rand_clusters.max()}')
+    print(f'Max Vm/Va: {kc.Cluster.rand_clusters.min()}')
 
     # Output to CSV and XLSX:
     output.algo_output_to_csv(cluster_dict)
