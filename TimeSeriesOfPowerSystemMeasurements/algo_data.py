@@ -152,8 +152,8 @@ def move_clusters():
     '''
     for clstr in kc.Cluster.temp_clusters:
         clstr.DPs = 0
-        new_Va = np.empty(int(len(clstr.X_coords)))
-        new_Vm = np.empty(int(len(clstr.Y_coords)))
+        new_Va = np.empty(int(len(clstr.X_coords)))*0
+        new_Vm = np.empty(int(len(clstr.Y_coords)))*0
 
         for dtpnt in kc.DataPoint.datapoints:
             if dtpnt.Cluster == clstr.Cnum:
@@ -293,7 +293,7 @@ def plot_elbow(clstr_scores):
     y = clstr_scores
 
     xax = [0, len(clstr_scores)+1]
-    yax = [0, 800]
+    yax = [0, 7000]
 
     ttl = 'Finding optimal number of clusters'
     xlbl = 'K (no. of clusters)'
