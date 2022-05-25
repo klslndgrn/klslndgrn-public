@@ -55,7 +55,7 @@ if __name__ == "__main__":
     cluster_score, cluster_dict, datapoint_list = clustering(cluster_count)
 
     # Printing results:
-    print(cluster_dict)
+    # print(cluster_dict)
     print(cluster_score)
     print(datapoint_list[-1])
 
