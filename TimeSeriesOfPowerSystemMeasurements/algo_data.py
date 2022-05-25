@@ -275,7 +275,7 @@ def loop_prerequisistes():
     num = 1
     J = 0
     Jprev = 1000
-    tol = 1e-0
+    tol = 1e-1
     loop = True
     return(num, J, Jprev, tol, loop)
 
@@ -285,7 +285,7 @@ def loop2_prerequisistes():
     "While-loop prerequisite data.
     '''
     iter = 0
-    tol2 = 1e-2
+    tol2 = 5e-2
     clust_loop = True
     return(iter, tol2, clust_loop)
 
