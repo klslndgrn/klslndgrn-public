@@ -69,8 +69,8 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
         # the current set of clusters. If the difference is small enough, the
         # loop is stopped.
         # (The elbow is found where the cost difference small.)
-        error = abs(J - Jprev)
-        # print(f'Cost error = {error}')
+        error = abs(J - Jprev)/Jprev
+        print(f'Difference = {error} %')
         if error < tol:
             pass  # replace pass with: loop = False
         if num > cluster_count+2:
