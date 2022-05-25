@@ -3,6 +3,7 @@ import algo
 import data
 import output
 import algo_data as ad
+import kclasses as kc
 
 
 def main(events, samples=100, samples_test=20):
@@ -57,6 +58,10 @@ if __name__ == "__main__":
     print(cluster_dict)
     print(cluster_score)
     print(datapoint_list[-1])
+
+    print(kc.Cluster.rand_clusters)
+    print(kc.Cluster.rand_clusters.max())
+    print(kc.Cluster.rand_clusters.min())
 
     # Printing cost-functions:
     ad.plot_elbow(cluster_score)

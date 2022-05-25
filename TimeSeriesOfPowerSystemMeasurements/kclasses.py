@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 class ClusterClasses():
@@ -38,6 +39,7 @@ class Cluster(ClusterClasses):
     clusters = {}
     temp_clusters = []
     prev_clusters = []
+    rand_clusters = pd.DataFrame()
 
     cost_sum = 0
 
@@ -94,8 +96,8 @@ class DataPoint(ClusterClasses):
 
     def __repr__(self):
         return(f'\n{self.Type} {self.DPnum}:\
-        \nVa={self.X_coords}\
         \nVm={self.Y_coords}\
+        \nVa={self.X_coords}\
         \nDist2Clust={self.Dist2Clust}\
         \nClosestCluster={self.Cluster}\
         \nEventType={self.Ev_type}\

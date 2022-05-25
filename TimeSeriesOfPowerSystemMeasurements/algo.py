@@ -95,5 +95,9 @@ if __name__ == "__main__":
     print(cluster_dict)
     print(cluster_score)
 
+    print(kc.Cluster.rand_clusters)
+    print(kc.Cluster.rand_clusters.max())
+    print(kc.Cluster.rand_clusters.min())
+
     # output.algo_output_to_csv(kc.Cluster.clusters)
     ad.plot_elbow(cluster_score)

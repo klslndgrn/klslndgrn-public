@@ -1,6 +1,7 @@
 import kclasses as kc
 import random
 import numpy as np
+import pandas as pd
 import copy
 import matplotlib.pyplot as plt
 from tqdm import tqdm
@@ -236,6 +237,11 @@ def generate_random_clusters(num, vm_max, vm_min, va_max, va_min):
 
         k = kc.Cluster(x_vals, y_vals, Cnum=i)
         kc.Cluster.temp_clusters.append(k)
+
+        df = pd.DataFrame({'Vm': k.Y_coords,
+                           'Va': k.X_coords})
+
+        kc.Cluster.rand_clusters = pd.concat([kc.Cluster.rand_clusters, df])
 
 
 def generate_data_points(vm_norm, va_norm, events):
