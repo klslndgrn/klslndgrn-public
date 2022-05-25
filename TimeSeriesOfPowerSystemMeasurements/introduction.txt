@@ -1,0 +1,50 @@
+Assignment 2
+
+(
+    1. Create dataset
+    2. Assign dataset to pandapower object (load,gen..)
+    3. Pick output parameter
+    4. Run simulation
+)
+
+1.  Create pandapower grid
+
+    Generate dataset using pandapower
+    Save 10-20% for "checking dataset"
+
+    Run timeseries simulation 100(?) min/sec/hours/steps
+
+    Insert events in grid:
+        disconnect line, 100 powerflows
+        disconnect gen, 100 powerflows
+        insert load, 100 powerflows
+        ...
+        and so on...
+
+    Dataset: V, P in buses, etc
+            V_1,    P_1
+            V_2,    P_2
+            ...
+            V_1000, P_1000
+
+    --> Dataset is created
+
+2.  Cluster data using k-means algorithm
+    to classify datapoints from dataset.
+
+    Find which "k" is best using "elbow".
+
+    Now apply these classifications on dataset
+    Dataset: {V, P, C} in buses, etc
+            V_1,    P_1,    C_1
+            V_2,    P_2,    C_2,
+            ...
+            V_1000, P_1000, C_1000
+
+3.  Classify a new datapoint to Cluster.
+
+    - Test 10(?) new datapoints from pandapower
+      simulation and classify
+      (these new datapoints will only contain (V,P).
+
+    - Using kNN (k-Nearest Neighbor)
