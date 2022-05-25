@@ -63,8 +63,8 @@ if __name__ == "__main__":
     print(kc.Cluster.rand_clusters.max())
     print(kc.Cluster.rand_clusters.min())
 
-    # Printing cost-functions:
-    ad.plot_elbow(cluster_score)
-
     # Output to CSV and XLSX:
     output.algo_output_to_csv(cluster_dict)
+
+    # Printing cost-functions:
+    ad.plot_elbow(cluster_score)
