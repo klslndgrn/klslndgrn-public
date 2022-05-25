@@ -91,8 +91,9 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
 
 if __name__ == "__main__":
     cluster_score, cluster_dict, datapoint_list = k_means_clustering()
-    # print(kc.Cluster.clusters)
-    # print(kc.DataPoint.datapoints[-1])
+    print(datapoint_list[-1])
+    print(cluster_dict)
+    print(cluster_score)
 
     # output.algo_output_to_csv(kc.Cluster.clusters)
     ad.plot_elbow(cluster_score)

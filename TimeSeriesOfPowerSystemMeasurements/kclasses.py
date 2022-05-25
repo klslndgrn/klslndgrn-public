@@ -62,6 +62,8 @@ class Cluster(ClusterClasses):
 
     def __repr__(self):
         return(f'\n{self.Type} {self.Cnum}:\
+        \nVm={self.Y_coords}\
+        \nVa={self.X_coords}\
         \nCost={self.Cost}\
         \nDataPoints={self.DPs}\
         \nEvents={self.DPtypes}\
