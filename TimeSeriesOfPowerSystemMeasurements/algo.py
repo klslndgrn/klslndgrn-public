@@ -87,9 +87,17 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
             print(f'Cost difference between clusters is {error*100:.2f} %')
 
         if max(err_list) < tol:
-            pass  # replace pass with: loop = False
+            loop = False
+            print('----------------------------------------------------------')
+            print('k-Means Clustering algorithm is stopped due to small \
+decreases in cost.')
+            print('----------------------------------------------------------')
         if num > cluster_count+2:
             loop = False
+            print('----------------------------------------------------------')
+            print('k-Means Clustering algorithm is stopped due to too many \
+clusters.')
+            print('----------------------------------------------------------')
 
     # print(kc.Cluster.clusters)
     # print(kc.ClusterClasses.cluster_scores)
