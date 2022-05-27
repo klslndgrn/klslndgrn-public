@@ -20,6 +20,8 @@ def k_means_clustering(cluster_count=8, iterations=20):
     # Generating normalized datapoints
     ad.generate_data_points(vm_norm, va_norm, events)
 
+    print(kc.DataPoint.datapoints[-1])
+
     # Starting k-Means Clustering algorithm.
     cluster_score, cluster_dict, datapoint_list = k_means_algo(vm_norm,
                                                                va_norm,
@@ -52,6 +54,8 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
 ({iterations} iterations).')
         Jprev = J
 
+        err_list = []
+
         # Finding clusters with lowest cost to avoid local optimas. This
         # involves creating new random clusters 100 times and using the best
         # clusters. (Contains the second "while-loop")
@@ -71,12 +75,18 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
         # (The elbow is found where the cost difference small.)
         if num == 2:
             error = 100
+            err_list[0] = error
+            err_list[1] = error
         else:
-            # FIXME: Fixa så att det behöver vara två förändringar i rad på
-            # mindre än 1%.
+            error_prev = error
             error = abs(J - Jprev)/Jprev
+
+            err_list[0] = error_prev
+            err_list[1] = error
+
             print(f'Cost difference between clusters is {error*100:.2f} %')
-        if error < tol:
+
+        if max(err_list) < tol:
             pass  # replace pass with: loop = False
         if num > cluster_count+2:
             loop = False

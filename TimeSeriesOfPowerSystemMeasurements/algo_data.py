@@ -275,7 +275,7 @@ def loop_prerequisistes():
     num = 1
     J = 0
     Jprev = 1000
-    tol = 1e-1
+    tol = 1e-2
     loop = True
     return(num, J, Jprev, tol, loop)
 

@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 import os
+import copy
 
 
 # --------------------------------------------------------------------------- #
@@ -16,21 +17,23 @@ def create_output(net, ds, datanames, samples, events):
     cluster_counter = 0
     print('\n------ Output from simulations are recorded: ------\n')
     for dtnm in datanames:
-        if 'CLOSED' in dtnm or 'STATUS' in dtnm:
-            pass
-        else:
-            if cluster_counter > events-1:
-                break
-            print(f'Algo name = {dtnm}')
+        if cluster_counter > events-1:
+            break
+        print(f'Algo name = {dtnm}')
 
-            netx = net
-            netx = data.create_controller(netx, ds, dtnm)
+        netx = copy.deepcopy(net)
+        netx = data.create_controller(netx, ds, dtnm)
 
-            data.run_time_series(netx, samples)
+        if 'STATUS' in dtnm:
+            print(netx.sgen)
+        if 'CLOSED' in dtnm:
+            print(netx.switch)
 
-            append_csv_data(dtnm)
+        data.run_time_series(netx, samples)
 
-            cluster_counter += 1
+        append_csv_data(dtnm)
+
+        cluster_counter += 1
     return(cluster_counter)
 
 

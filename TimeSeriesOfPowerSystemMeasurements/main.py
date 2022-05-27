@@ -10,7 +10,6 @@ def main(events, samples=100, samples_test=20):
     samples_learn = 100 - samples_test
 
     net = grid.grid_creator()
-    network = net
     print(net)
 
     ds_learn, ds_test, df, datanames = data.create_data_source(net,
@@ -27,7 +26,7 @@ def main(events, samples=100, samples_test=20):
 
     print(f'\n{cluster_count} number of clusters expected.\n')
 
-    return(network, ds_test, cluster_count)
+    return(net, ds_test, cluster_count)
 
 
 def clustering(cluster_count, iterations=100):
@@ -46,7 +45,8 @@ if __name__ == "__main__":
     If main.py is ran without GUI, the following will occur.
     '''
     # Change "events" to change the number of events implemented in the grid
-    network, ds_test, cluster_count = main(events=25)
+    network, ds_test, cluster_count = main(events=35)
+    # print(network)
 
     # Print Pandapower network:
     # grid.plot_grid(network)

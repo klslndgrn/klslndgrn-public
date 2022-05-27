@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import pandapower as pp
-import random
+# import random
 import output
 from pandapower.control import ConstControl
 from pandapower.timeseries import DFData
@@ -24,9 +24,11 @@ def generate_low(samples):
 
 
 def generate_status(samples):
-    status = np.empty(samples)
-    for i in range(samples):
-        status[i] = random.randint(0, 1)
+    status = ['False'] * samples
+    # status = np.empty(samples)
+    # for i in range(samples):
+    # status[i] = random.randint(0, 1)
+    # status[i] = 'False'
     # print(status)
     return(status)
 
@@ -95,6 +97,7 @@ def gens_high_low(net, samples, df):
     Generating a dataset for the GENERATORS. This dataset includes both high
     and low values compared to the nominal values for only the active (P)
     power.
+    If generator has 0 power generation, the power is set to 20 MW with noise.
     '''
     # CHANGING ACTIVE POWER FOR THE GENERATORS
     for nm, p_mw in zip(net.sgen.name, net.sgen.p_mw):
@@ -133,8 +136,11 @@ def lines_status(net, samples, df):
     OPEN.
     '''
     for nm in net.switch.name:
-        linename = f'{nm}-CLOSED'
-        df[linename] = generate_status(samples)
+        if '-4' in nm:
+            pass
+        else:
+            linename = f'{nm}-CLOSED'
+            df[linename] = generate_status(samples)
     return(df)
 
 
@@ -217,15 +223,15 @@ def status_gen_controller(net, ds, input_name):
     '''
     name = input_name[:-7]
     e_idx = pp.get_element_index(net, 'sgen', name)
-    # print(input_name)
-    # print(name)
-    # print(e_idx)
-    ConstControl(net,
-                 element='sgen',
-                 element_index=e_idx,
-                 variable='in_service',
-                 data_source=ds,
-                 profile_name=input_name)
+    net.sgen.in_service.at[e_idx] = False
+
+    # ConstControl(net,
+    #              element='sgen',
+    #              element_index=e_idx,
+    #              variable='in_service',
+    #              data_source=ds,
+    #              profile_name=input_name)
+
     return(net)
 
 
@@ -235,12 +241,15 @@ def line_controller(net, ds, input_name):
     '''
     name = input_name[:-7]
     e_idx = pp.get_element_index(net, 'switch', name)
-    ConstControl(net,
-                 element='switch',
-                 element_index=e_idx,
-                 variable='closed',
-                 data_source=ds,
-                 profile_name=input_name)
+    net.switch.closed.at[e_idx] = False
+
+    # ConstControl(net,
+    #              element='switch',
+    #              element_index=e_idx,
+    #              variable='closed',
+    #              data_source=ds,
+    #              profile_name=input_name)
+
     return(net)
 
 
