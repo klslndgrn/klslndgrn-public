@@ -7,7 +7,7 @@ import kclasses as kc
 # Main function ------------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
-def k_means_clustering(cluster_count=8, iterations=20):
+def k_means_clustering(cluster_count=3, iterations=3):
     '''
     The main k-Means clustering algorithm function. It is possible to change
     the number of iterations of which the randomizer created clusters. 100 is
@@ -20,7 +20,11 @@ def k_means_clustering(cluster_count=8, iterations=20):
     # Generating normalized datapoints
     ad.generate_data_points(vm_norm, va_norm, events)
 
-    print(kc.DataPoint.datapoints[-1])
+    # print(kc.DataPoint.datapoints)
+
+    # print(kc.DataPoint.datapoints[-1])
+    num_dps = kc.DataPoint.datapoints[-1].DPnum + 1
+    print(f'------ There are {num_dps} datapoints to be processed. ------\n')
 
     # Starting k-Means Clustering algorithm.
     cluster_score, cluster_dict, datapoint_list = k_means_algo(vm_norm,
@@ -54,8 +58,6 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
 ({iterations} iterations).')
         Jprev = J
 
-        err_list = []
-
         # Finding clusters with lowest cost to avoid local optimas. This
         # involves creating new random clusters 100 times and using the best
         # clusters. (Contains the second "while-loop")
@@ -75,18 +77,16 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
         # (The elbow is found where the cost difference small.)
         if num == 2:
             error = 100
-            err_list[0] = error
-            err_list[1] = error
+            error_prev = 100
         else:
             error_prev = error
+            # print(J)
+            # print(Jprev)
+            # print(J - Jprev)
             error = abs(J - Jprev)/Jprev
-
-            err_list[0] = error_prev
-            err_list[1] = error
-
             print(f'Cost difference between clusters is {error*100:.2f} %')
 
-        if max(err_list) < tol:
+        if error < tol and error_prev < tol:
             loop = False
             print('----------------------------------------------------------')
             print('k-Means Clustering algorithm is stopped due to small \

@@ -24,10 +24,10 @@ def create_output(net, ds, datanames, samples, events):
         netx = copy.deepcopy(net)
         netx = data.create_controller(netx, ds, dtnm)
 
-        if 'STATUS' in dtnm:
-            print(netx.sgen)
-        if 'CLOSED' in dtnm:
-            print(netx.switch)
+        # if 'STATUS' in dtnm:
+        #     print(netx.sgen)
+        # if 'CLOSED' in dtnm:
+        #     print(netx.switch)
 
         data.run_time_series(netx, samples)
 

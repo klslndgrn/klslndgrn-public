@@ -62,6 +62,8 @@ def lowest_cost_local_optima(iterations, num, vm_mx, vm_mn, va_mx, va_mn):
         # current best clusters.
         compare_cluster_cost(num, i)
 
+        # print(kc.Cluster.clusters)
+
         # Updating progress bar
         pbar.update()
 

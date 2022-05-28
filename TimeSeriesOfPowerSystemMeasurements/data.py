@@ -136,7 +136,7 @@ def lines_status(net, samples, df):
     OPEN.
     '''
     for nm in net.switch.name:
-        if '-4' in nm:
+        if '-4' in nm or '-2' in nm or '-3' in nm:
             pass
         else:
             linename = f'{nm}-CLOSED'
