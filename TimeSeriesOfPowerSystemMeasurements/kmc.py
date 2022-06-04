@@ -1,5 +1,5 @@
 import output
-import algo_data as ad
+import kmc_data as md
 import kclasses as kc
 
 
@@ -18,7 +18,7 @@ def k_means_clustering(cluster_count=3, iterations=3):
     vm, va, vm_norm, va_norm, events = output.retreive_dataframe()
 
     # Generating normalized datapoints
-    ad.generate_data_points(vm_norm, va_norm, events)
+    md.generate_data_points(vm_norm, va_norm, events)
 
     # print(kc.DataPoint.datapoints)
 
@@ -50,7 +50,7 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
                                                                     va_norm)
 
     # First while-loop data.
-    num, J, Jprev, tol, loop = ad.loop_prerequisistes()
+    num, J, Jprev, tol, loop = md.loop_prerequisistes()
 
     while loop is True:
 
@@ -61,12 +61,12 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
         # Finding clusters with lowest cost to avoid local optimas. This
         # involves creating new random clusters 100 times and using the best
         # clusters. (Contains the second "while-loop")
-        ad.lowest_cost_local_optima(iterations, num,
+        md.lowest_cost_local_optima(iterations, num,
                                     vm_mx, vm_mn, va_mx, va_mn)
 
         # Cost function: finding sum of all costs for each cluster centroid
         # (which is the distance from each datapoint to the closest cluster).
-        J = ad.cluster_cost_sum(num)
+        J = md.cluster_cost_sum(num)
 
         # Increasing the number of clusters by 1 each loop
         num += 1  # Number of clusters
@@ -118,9 +118,9 @@ if __name__ == "__main__":
     print(cluster_dict)
     print(cluster_score)
 
-    print(kc.Cluster.rand_clusters)
-    print(kc.Cluster.rand_clusters.max())
-    print(kc.Cluster.rand_clusters.min())
+    # print(kc.Cluster.rand_clusters)
+    # print(kc.Cluster.rand_clusters.max())
+    # print(kc.Cluster.rand_clusters.min())
 
     # output.algo_output_to_csv(kc.Cluster.clusters)
-    ad.plot_elbow(cluster_score)
+    md.plot_elbow(cluster_score)

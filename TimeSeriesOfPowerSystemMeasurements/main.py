@@ -3,7 +3,7 @@ import algo
 import data
 import output
 import algo_data as ad
-import kclasses as kc
+# import kclasses as kc
 
 
 def main(events, samples=100, samples_test=20):
@@ -57,11 +57,11 @@ if __name__ == "__main__":
     # Printing results:
     # print(cluster_dict)
     print(cluster_score)
-    print(datapoint_list[-1])
+    # print(datapoint_list[-1])
 
     # print(kc.Cluster.rand_clusters)
-    print(f'Max Vm/Va: {kc.Cluster.rand_clusters.max()}')
-    print(f'Max Vm/Va: {kc.Cluster.rand_clusters.min()}')
+    # print(f'Max Vm/Va: {kc.Cluster.rand_clusters.max()}')
+    # print(f'Max Vm/Va: {kc.Cluster.rand_clusters.min()}')
 
     # Output to CSV and XLSX:
     output.algo_output_to_csv(cluster_dict)
