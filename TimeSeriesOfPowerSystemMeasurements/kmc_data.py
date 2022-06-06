@@ -1,8 +1,9 @@
-import kclasses as kc
+import copy
 import random
+import output
+import kclasses as kc
 import numpy as np
 import pandas as pd
-import copy
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
@@ -39,9 +40,7 @@ def lowest_cost_local_optima(iterations, num, vm_mx, vm_mn, va_mx, va_mn):
             move_clusters()
 
             dist_error = find_distance_diff()
-            # print(f'Distance error = {dist_error}')
 
-            # print(f'iter = {iter}')
             iter += 1
 
             if dist_error < tol2:
@@ -106,8 +105,6 @@ def compare_cluster_cost(num, i):
             sum += clstr.Cost
         if sum_temp < sum:
             kc.Cluster.clusters[num] = copy.deepcopy(kc.Cluster.temp_clusters)
-            # print('CLUSTERS REPLACED --------------------------------------')
-            # print(f'with total cost of {sum_temp}\n')
         else:
             pass
 
@@ -266,6 +263,11 @@ def generate_data_points(vm_norm, va_norm, events):
         kc.DataPoint.datapoints.append(x)
 
 
+def save_data_points():
+    dp_list = copy.deepcopy(kc.DataPoint.datapoints)
+    output.create_base_datapoints_pickle(dp_list)
+
+
 # --------------------------------------------------------------------------- #
 # Loop prerequisites -------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
@@ -279,7 +281,8 @@ def loop_prerequisistes():
     Jprev = 1000
     tol = 1e-2
     loop = True
-    return(num, J, Jprev, tol, loop)
+    enum = 0
+    return(num, J, Jprev, tol, loop, enum)
 
 
 def loop2_prerequisistes():
@@ -332,9 +335,17 @@ def plot_elbow(clstr_scores):
     plt.show()
 
 
-# --------------------------------------------------------------------------- #
-# CSV to CLUSTERS ----------------------------------------------------------- #
-# --------------------------------------------------------------------------- #
-
-def csv_to_clusters():
-    pass
+def create_kmc_output(main_cluster):
+    string_list = []
+    for clstr in main_cluster:
+        evlist = clstr.DPtypes
+        if not evlist:
+            pass
+        else:
+            evlist = sum(evlist, [])
+            string1 = 'Cluster' + str(clstr.Cnum)
+            string2 = ', '.join(evlist)
+            string3 = string1 + ': ' + string2
+            string_list.append(string3)
+    string = '\n'.join(string_list)
+    return(string)

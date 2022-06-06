@@ -82,7 +82,8 @@ class DataPoint(ClusterClasses):
                  Ev_type=None,
                  Cluster=None,
                  NumClust=None,
-                 MinClustDist=None):
+                 MinClustDist=None,
+                 Classification=None):
         super().__init__(X_coordinates, Y_coordinates, Type)
 
         self.DPnum = DPnum
@@ -94,11 +95,16 @@ class DataPoint(ClusterClasses):
         self.NumClust = NumClust
         self.MinClustDist = MinClustDist
 
+        self.Classification = Classification
+        self.ClassDict = {}
+        self.ClassList = []
+
     def __repr__(self):
         return(f'\n{self.Type} {self.DPnum}:\
         \nVm={self.Y_coords}\
         \nVa={self.X_coords}\
-        \nDist2Clust={self.Dist2Clust}\
         \nClosestCluster={self.Cluster}\
         \nEventType={self.Ev_type}\
+        \nClassification={self.Classification}\
         \n')
+        # \nDist2Clust={self.Dist2Clust}\

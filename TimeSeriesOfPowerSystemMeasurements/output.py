@@ -1,33 +1,27 @@
 import csv
 import data
+import os
+import copy
+import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
-import os
-import copy
 
 
 # --------------------------------------------------------------------------- #
 # Generating output --------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
-def create_output(net, ds, datanames, samples, events):
+def create_output(net, ds, datanames, samples):
     create_csv()
     data.output_writer(net, samples)
     cluster_counter = 0
     print('\n------ Output from simulations are recorded: ------\n')
     for dtnm in datanames:
-        if cluster_counter > events-1:
-            break
         print(f'Algo name = {dtnm}')
 
         netx = copy.deepcopy(net)
         netx = data.create_controller(netx, ds, dtnm)
-
-        # if 'STATUS' in dtnm:
-        #     print(netx.sgen)
-        # if 'CLOSED' in dtnm:
-        #     print(netx.switch)
 
         data.run_time_series(netx, samples)
 
@@ -216,6 +210,86 @@ def create_output_csv(df):
 
 
 # --------------------------------------------------------------------------- #
+# Output to PICKLE ---------------------------------------------------------- #
+# --------------------------------------------------------------------------- #
+
+def create_output_pickle(input):
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'cluster_output.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'wb') as file:
+        # A new file will be created
+        pickle.dump(input, file)
+
+
+def retreive_output_pickle():
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'cluster_output.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'rb') as file:
+        # A new file will be created
+        clusters = pickle.load(file)
+    return(clusters)
+
+
+def create_score_pickle(input):
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'cluster_score.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'wb') as file:
+        # A new file will be created
+        pickle.dump(input, file)
+
+
+def retreive_score_pickle():
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'cluster_score.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'rb') as file:
+        # A new file will be created
+        cluster_scores = pickle.load(file)
+    return(cluster_scores)
+
+
+def create_base_datapoints_pickle(input):
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'base_datapoints.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'wb') as file:
+        # A new file will be created
+        pickle.dump(input, file)
+
+
+def retreive_base_datapoints_pickle():
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'base_datapoints.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'rb') as file:
+        # A new file will be created
+        clusters = pickle.load(file)
+    return(clusters)
+
+
+def create_test_datapoints_pickle(input):
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'test_datapoints.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'wb') as file:
+        # A new file will be created
+        pickle.dump(input, file)
+
+
+def retreive_test_datapoints_pickle():
+    dir, data_dir_vm, data_dir_va = output_writer_directory()
+    file_name = dir / 'test_datapoints.pkl'
+    # Open a file and use dump()
+    with open(file_name, 'rb') as file:
+        # A new file will be created
+        datapoints = pickle.load(file)
+    return(datapoints)
+
+
+# --------------------------------------------------------------------------- #
 # Scatter plot (2D) --------------------------------------------------------- #
 # --------------------------------------------------------------------------- #
 
@@ -252,3 +326,4 @@ def plot_scatter():
     plt.ylabel(ylbl, usetex=True)
     # ---- SHOW PLOT ---- #
     plt.show()
+    # plt.savefig("CostPerCluster.png")

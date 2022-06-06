@@ -19,10 +19,8 @@ def k_means_clustering(cluster_count=3, iterations=3):
 
     # Generating normalized datapoints
     md.generate_data_points(vm_norm, va_norm, events)
+    md.save_data_points()
 
-    # print(kc.DataPoint.datapoints)
-
-    # print(kc.DataPoint.datapoints[-1])
     num_dps = kc.DataPoint.datapoints[-1].DPnum + 1
     print(f'------ There are {num_dps} datapoints to be processed. ------\n')
 
@@ -50,7 +48,7 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
                                                                     va_norm)
 
     # First while-loop data.
-    num, J, Jprev, tol, loop = md.loop_prerequisistes()
+    num, J, Jprev, tol, loop, enum = md.loop_prerequisistes()
 
     while loop is True:
 
@@ -77,16 +75,16 @@ def k_means_algo(vm_norm, va_norm, iterations, cluster_count):
         # (The elbow is found where the cost difference small.)
         if num == 2:
             error = 100
-            error_prev = 100
+            # error_prev = 100
         else:
-            error_prev = error
-            # print(J)
-            # print(Jprev)
-            # print(J - Jprev)
+            # error_prev = error
             error = abs(J - Jprev)/Jprev
             print(f'Cost difference between clusters is {error*100:.2f} %')
 
-        if error < tol and error_prev < tol:
+        if error < tol:  # and error_prev < tol:
+            enum += 1
+
+        if enum > 1:
             loop = False
             print('----------------------------------------------------------')
             print('k-Means Clustering algorithm is stopped due to small \

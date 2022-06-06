@@ -65,7 +65,7 @@ def create_data_source(net, samples, test_sample):
     ds_learn = DFData(df_learn)
     ds_test = DFData(df_test)
 
-    return(ds_learn, ds_test, df, datanames)
+    return(ds_learn, ds_test, df_learn, df_test, datanames)
 
 
 def loads_high_low(net, samples, df):
@@ -271,7 +271,7 @@ def output_writer(net, samples):
     return(ow)
 
 
-def run_time_series(net, samples):
-    time_steps = range(0, samples)
+def run_time_series(net, samples, start=0):
+    time_steps = range(start, samples)
     ts = run_timeseries(net, time_steps)
     return(ts)
