@@ -63,9 +63,9 @@ plt.ylim(yax)  # YLIM
 plt.axhline(y=0, color='k', linestyle='-', alpha=0.5)  # X-AXIS
 plt.axvline(x=0, color='k', linestyle='-', alpha=0.5)  # Y-AXIS
 # ---- FORMATTING ---- #
-plt.grid(b=True, which='major',
+plt.grid(visible=True, which='major',
          color='k', linestyle='-', alpha=0.3)  # MAJOR GRID
-plt.grid(b=True, which='minor',
+plt.grid(visible=True, which='minor',
          color='k', linestyle='-', alpha=0.1)  # MINOR GRID
 plt.minorticks_on()
 # plt.tick_params(labelcolor='k', labelsize='large', width=1) # TICK FORMAT
