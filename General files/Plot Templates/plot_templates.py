@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import rc
 
 """
 Linestyles as:
@@ -42,39 +43,43 @@ x = np.linspace(-4*np.pi, 4*np.pi, num=num_points)
 f1 = np.exp(x/10)*np.sin(x)*np.cos(x)
 f2 = np.exp(2*x/10)*np.sin(2*x)*np.cos(2*x)
 
-xax = [-10, 10]
-yax = [-5, 5]
+# ----------------------------------------------------
+# ---- PLOT 1 ----------------------------------------
+# ----------------------------------------------------
+rc('text', usetex=True)
+rc('font', size=12)
+rc('legend', fontsize=10)
 
-ttl = 'TITLE'
-xlbl = 'X-LABEL'
-ylbl = 'Y-LABEL'
+mttl = 'PLOT 1'
+ttl = r'$\mathrm{TITLE}$: $f_1(x) = e^{x/10}sin(x)cos(x)$'
+xlbl = r'$\mathrm{X-label}$'
+ylbl = r'$\mathrm{Y-label}$'
 
-# ------------------ #
-# ---- PLOTTING ---- #
-fig = plt.figure('PLOT X',
-                 figsize=(7, 5))
+x_ax_lim = [-10, 10]
+y_ax_lim = [-5, 5]
+
+fig = plt.figure(mttl, figsize=(10, 5))
 # ------------------ #
 # ---- PLOTS ---- #
-plt.plot(x, f1, label='f1')
-plt.plot(x, f2, label='f2')
+plt.plot(x, f1, label='$f_1(x)$', linewidth=1)
+plt.plot(x, f2, label='$f_2(x)$', linewidth=1)
 # ---- AXIS ---- #
-plt.xlim(xax)  # XLIM
-plt.ylim(yax)  # YLIM
-plt.axhline(y=0, color='k', linestyle='-', alpha=0.5)  # X-AXIS
-plt.axvline(x=0, color='k', linestyle='-', alpha=0.5)  # Y-AXIS
+plt.xlim(x_ax_lim)  # XLIM
+plt.ylim(y_ax_lim)  # YLIM
+plt.axhline(y=0, color='k', linewidth=0.9, alpha=0.3)  # X-AXIS
+plt.axvline(x=0, color='k', linewidth=0.9, alpha=0.3)  # Y-AXIS
 # ---- FORMATTING ---- #
-plt.grid(visible=True, which='major',
-         color='k', linestyle='-', alpha=0.3)  # MAJOR GRID
-plt.grid(visible=True, which='minor',
-         color='k', linestyle='-', alpha=0.1)  # MINOR GRID
+plt.grid(visible=True, which='major', color='k', linestyle='-', alpha=0.2)
+plt.grid(visible=True, which='minor', color='k', linestyle='-', alpha=0.06)
 plt.minorticks_on()
+# plt.tick_params(direction='inout')
 # plt.tick_params(labelcolor='k', labelsize='large', width=1) # TICK FORMAT
 # ---- LEGEND ---- #
 plt.legend()
 # ---- LABELS ---- #
-plt.title(ttl, usetex=True)
-plt.xlabel(xlbl, usetex=True)
-plt.ylabel(ylbl, usetex=True)
+plt.title(ttl)
+plt.xlabel(xlbl)
+plt.ylabel(ylbl)
 # ---- SHOW PLOT ---- #
 plt.show()
 # ---- SAVE PLOT ---- #
