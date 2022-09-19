@@ -37,7 +37,7 @@ Alpha of line as:
     alpha = 0 <-> 1
 """
 
-# ---- PLOT DATA ---- #
+# ---- EXAMPLE DATA FOR THE PLOT ---- #
 num_points = 1000
 x = np.linspace(-4*np.pi, 4*np.pi, num=num_points)
 f1 = np.exp(x/10)*np.sin(x)*np.cos(x)
@@ -47,18 +47,18 @@ f2 = np.exp(2*x/10)*np.sin(2*x)*np.cos(2*x)
 # ---- PLOT 1 ----------------------------------------
 # ----------------------------------------------------
 rc('text', usetex=True)
-rc('font', size=12)
-rc('legend', fontsize=10)
+rc('font', size=10)
+rc('legend', fontsize=12)
 
 mttl = 'PLOT 1'
 ttl = r'$\mathrm{TITLE}$: $f_1(x) = e^{x/10}sin(x)cos(x)$'
 xlbl = r'$\mathrm{X-label}$'
 ylbl = r'$\mathrm{Y-label}$'
 
-x_ax_lim = [-10, 10]
-y_ax_lim = [-5, 5]
+x_ax_lim = [-10, 10] # X-limits
+y_ax_lim = [-5, 5] # Y-limits
 
-fig = plt.figure(mttl, figsize=(10, 5))
+fig = plt.figure(mttl, figsize=(10, 7))
 # ------------------ #
 # ---- PLOTS ---- #
 plt.plot(x, f1, label='$f_1(x)$', linewidth=1)
@@ -77,9 +77,9 @@ plt.minorticks_on()
 # ---- LEGEND ---- #
 plt.legend()
 # ---- LABELS ---- #
-plt.title(ttl)
-plt.xlabel(xlbl)
-plt.ylabel(ylbl)
+plt.title(ttl, fontsize = 14)
+plt.xlabel(xlbl, fontsize = 12)
+plt.ylabel(ylbl, fontsize = 12)
 # ---- SHOW PLOT ---- #
 plt.show()
 # ---- SAVE PLOT ---- #
