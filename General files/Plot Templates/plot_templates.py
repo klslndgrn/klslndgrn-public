@@ -70,7 +70,7 @@ plt.axhline(y=0, color='k', linewidth=0.9, alpha=0.3)  # X-AXIS
 plt.axvline(x=0, color='k', linewidth=0.9, alpha=0.3)  # Y-AXIS
 # ---- FORMATTING ---- #
 plt.grid(visible=True, which='major', color='k', linestyle='-', alpha=0.2)
-plt.grid(visible=True, which='minor', color='k', linestyle='-', alpha=0.06)
+plt.grid(visible=True, which='minor', color='k', linestyle='--', alpha=0.1)
 plt.minorticks_on()
 # plt.tick_params(direction='inout')
 # plt.tick_params(labelcolor='k', labelsize='large', width=1) # TICK FORMAT
@@ -84,3 +84,4 @@ plt.ylabel(ylbl, fontsize = 12)
 plt.show()
 # ---- SAVE PLOT ---- #
 # plt.savefig("XXXX.png")
+# plt.savefig("XXXX.pdf")
