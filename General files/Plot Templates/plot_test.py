@@ -1,5 +1,6 @@
 import numpy as np
 from plot_functions import plot_one_graph
+from plot_functions import plot_subplot
 
 # ---- EXAMPLE DATA FOR THE PLOT ---- #
 num_points = 1000
@@ -18,5 +19,7 @@ plot_one_graph([x, x], [f1, f2],
                LineStyles=['-', '--'],
                XLimits=x_ax_lim,
                YLimits=y_ax_lim)
+
+plot_subplot([x, x], [f1, f2])
 
 # , SaveAs='test.png'
