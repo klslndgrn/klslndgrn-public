@@ -211,9 +211,9 @@ def run_svm():
 
     # ==== SELECT KERNEL ==== #
     '''Select which Kernel to use.'''
-    kernel = linear_kernel
+    # kernel = linear_kernel
     # kernel = polynomial_kernel
-    # kernel = radial_basis_kernel
+    kernel = radial_basis_kernel
 
     # ==== SET SLACK: ==== #
     '''Select slack.
@@ -222,8 +222,8 @@ def run_svm():
      - Large slack does not lower the complexity.
     Smaller slack-values increases the margin.
      - Small slack decreases the complexitity -> Lower variance.'''
-    # Cval = 1
-    Cval = None
+    Cval = 20
+    # Cval = None
 
     # Generating datapoints:
     # classA, classB = generate_data(samples=20)
@@ -274,4 +274,18 @@ def plot_results(classA, classB, XYGrid):
 if __name__ == '__main__':
     np.random.seed(100)
     classA, classB, XYGrid = run_svm()
+
+    # Test classifier:
+    tx = [(0, 0), (2, 2), (-2, -2), (-2, 2), (2, -2)]
+    print('====================================')
+    print('TESTING:')
+    for t in tx:
+        ind = indicator(t)
+        if ind >= 0:
+            c = 'Class +1 "Blue"'
+        else:
+            c = 'Class -1 "Red"'
+        print(f'Datapoint {t} = {c}')
+    print('====================================')
+
     plot_results(classA, classB, XYGrid)
