@@ -21,7 +21,7 @@ The following topics in machine learning and computational intelligence are cove
 __This repository contains the completed exercises in DD2421:__
 
 - [x] LAB1 - _Classification Trees_
-- [] LAB2 - _Support Vector Machines_
+- [x] LAB2 - _Support Vector Machines_
 - [] LAB3 - _Bayesian Learning and Boosting_
 
 ### This repository contains code written by Klas Lindgren
