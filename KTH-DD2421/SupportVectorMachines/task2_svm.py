@@ -262,10 +262,9 @@ def plot_results(classA, classB, XYGrid):
     # print(Grid)
     # filename = 'plt-res_advanced_C-1.png'
     # print(classA)
-    plot_data(classA, classB,
-              XYGrid)
-    # plot_data(classA, classB,
-    #           XYGrid, SaveAs=filename)
+
+    plot_data(classA, classB, XYGrid)  # Without saving
+    # plot_data(classA, classB, XYGrid, SaveAs=filename)  # Saving plot
 
 
 # =============================================================================
@@ -275,7 +274,9 @@ if __name__ == '__main__':
     np.random.seed(100)
     classA, classB, XYGrid = run_svm()
 
-    # Test classifier:
+    # Test the classifier. If indicator-function returns
+    # a positive value -> class = "+1"
+    # a negative value -> class = "-1"
     tx = [(0, 0), (2, 2), (-2, -2), (-2, 2), (2, -2)]
     print('====================================')
     print('TESTING:')
