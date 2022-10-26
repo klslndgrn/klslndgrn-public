@@ -4,7 +4,7 @@ import random as rnd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
-# import drawtree_qt5 as qt5
+import drawtree_qt5 as qt5
 
 # ----------------------------------------------------
 # ---- Datasets --------------------------------------
@@ -21,6 +21,14 @@ m2t = m.monk2test
 # MONK3 and MONK3-TEST
 m3 = m.monk3
 m3t = m.monk3test
+
+# # EXPERIMENT SET
+# ed = m.exp_data
+# ea = m.exp_attributes
+
+# te = dtree.buildTree(ed, ea)
+# tedraw = qt5.drawTree(te)
+
 
 # ----------------------------------------------------
 # ---- ASSIGNMENT 0 ----------------------------------
@@ -253,7 +261,7 @@ plt.xlabel(xlbl, fontsize=12)
 plt.ylabel(ylbl, fontsize=12)
 # ---- SAVE PLOT ---- #
 # plt.savefig('plot1_mean.png', dpi=600)
-plt.savefig('plot1_mean.pdf')
+# plt.savefig('plot1_mean.pdf')
 # ---- SHOW PLOT ---- #
 plt.show()
 
@@ -300,6 +308,6 @@ plt.xlabel(xlbl, fontsize=12)
 plt.ylabel(ylbl, fontsize=12)
 # ---- SAVE PLOT ---- #
 # plt.savefig('plot2_std.png', dpi=600)
-plt.savefig('plot2_std.pdf')
+# plt.savefig('plot2_std.pdf')
 # ---- SHOW PLOT ---- #
 plt.show()
