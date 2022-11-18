@@ -2,6 +2,7 @@ from pathlib import Path
 from os import path
 import numpy as np
 import pandas as pd
+from sklearn.metrics import accuracy_score
 
 
 def predict_labels(CLF, df):
@@ -26,7 +27,7 @@ def save_prediction(classdf):
 
 def output_writer_directory(Type):
     """Finding output file directory path."""
-    dir = Path(__file__).absolute().parent
+    dir = Path(__file__).absolute().parent / "Files"
     if Type == "Append":
         directory = dir / "predictions.csv"
     elif Type == "Save":
@@ -77,3 +78,24 @@ def most_common(FromType="Append", ToType="MostCommon"):
     print(common)
     print("=========================================\n")
     return common
+
+
+def comparison(labeldf):
+    """Comparing classified labels with ground truth."""
+    dir = Path(__file__).absolute().parent / "Files"
+    # ==== True Labels ====
+    dirTRUE = dir / "EvaluationGT-4.csv"
+    dfT = pd.read_csv(dirTRUE, header=None)
+    dfT.reset_index(drop=True, inplace=True)
+    dfT.columns = ["True Labels"]
+    print("\nThe ground truth is:")
+    print("=========================================")
+    print(dfT)
+    print("=========================================\n")
+    # ==== Printing DFs ====
+    predictions = labeldf["Predicted Labels"].to_numpy()
+    ground_truth = dfT["True Labels"].to_numpy()
+    acc = accuracy_score(ground_truth, predictions)
+    print("\n=========================================")
+    print(f"The accuracy of the prediction is: {acc}")
+    print("=========================================\n")

@@ -19,6 +19,7 @@ from classify import (
     label_conversion,
     save_prediction,
     most_common,
+    comparison
 )
 
 # =============================================================================
@@ -47,7 +48,7 @@ def run_classification(Runs=10):
 # =============================================================================
 # ==== MAIN TRAINING AND EVALUATION ===========================================
 # =============================================================================
-def run_training(TestFrac=0.2, Split=True, TrainMany=False):
+def run_training(TestFrac=0.2, Split=False, TrainMany=False):
     # ==== IMPORTING ENCODED TRANING DATA ====
     tdf = import_training_data(PATH)
 
@@ -109,7 +110,8 @@ def run_evaluation(CLF, encoder):
 # ==== RUN MAIN CODE ==========================================================
 # =============================================================================
 if __name__ == "__main__":
-    labeldf = run_classification(Runs=25)
+    labeldf = run_classification(Runs=1)
+    comparison(labeldf)
 
 
 # ==== TUNING PARAMETERS ====

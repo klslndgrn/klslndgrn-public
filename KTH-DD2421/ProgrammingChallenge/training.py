@@ -305,7 +305,7 @@ def regular_classifiers(Xtrain, Ytrain, Xtest, Ytest, TrainMany):
         ADAclf = training_ADA(Xtrain, Ytrain)
         # ==== GradientBoosting Classifier ====
         GBclf = training_GB(Xtrain, Ytrain)
-        # ==== GradientBoosting Classifier ====
+        # ==== HistogramGradientBoosting Classifier ====
         HGBclf = training_HGB(Xtrain, Ytrain)
         # ==== MultiLayerPerceptron Classifier (ANN) ====
         MLPclf = training_MLP(Xtrain, Ytrain)
@@ -361,8 +361,11 @@ def regular_classifiers(Xtrain, Ytrain, Xtest, Ytest, TrainMany):
     else:
         # ==== GradientBoosting Classifier ====
         GBclf = training_GB(Xtrain, Ytrain)
+        # ==== HistogramGradientBoosting Classifier ====
+        # HGBclf = training_HGB(Xtrain, Ytrain)
     # ==== RETURNING BEST CLASSIFIER ====
     topCLF = GBclf
+    # topCLF = HGBclf
     return topCLF
 
 

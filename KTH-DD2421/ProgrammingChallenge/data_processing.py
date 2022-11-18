@@ -16,11 +16,11 @@ def import_raw_data(PATH, DataType):
     DataType must be "Train" or "Evaulate"."""
     if DataType == "Train":
         print("\nImporting raw TRAINING data.\n")
-        datafile = r"{}\TrainOnMe-4.csv".format(PATH)
+        datafile = r"{}\Files\TrainOnMe-4.csv".format(PATH)
         raw_df = pd.read_csv(datafile, index_col=0)
     elif DataType == "Evaluate":
         print("\nImporting raw EVALUATION data.\n")
-        datafile = r"{}\EvaluateOnMe-4.csv".format(PATH)
+        datafile = r"{}\Files\EvaluateOnMe-4.csv".format(PATH)
         raw_df = pd.read_csv(datafile, index_col=0)
     else:
         raise ValueError('Define Data as "Train" or "Evaluate".')
