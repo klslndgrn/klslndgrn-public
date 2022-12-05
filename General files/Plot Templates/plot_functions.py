@@ -54,6 +54,7 @@ def plot_one_graph(Variables, Functions,
     rc('text', usetex=True)
     rc('font', size=10)
     rc('legend', fontsize=12)
+    rc('text.latex', preamble=r'\usepackage{amsmath}')
 
     # ==== Figure ==== # ======================================================
     plt.figure(f'PLOT {Fignum}', figsize=(10, 7))
@@ -136,6 +137,7 @@ def plot_subplot(Variables, Functions,
     rc('text', usetex=True)
     rc('font', size=10)
     rc('legend', fontsize=12)
+    rc('text.latex', preamble=r'\usepackage{amsmath}')
 
     # ==== Figure ==== # ======================================================
     fig, ax = plt.subplots(2, 1, figsize=(10, 7))
