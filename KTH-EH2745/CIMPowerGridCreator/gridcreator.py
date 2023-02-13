@@ -14,7 +14,7 @@ def grid_initializer(grid_data):
     '''
     A function to initialize the creation of the grid.
     First an empty grid is created, then BusBars are created and thereafter
-    are nodes created without duplicates of the busbars.
+    are nodes created without duplicates of the BusBars.
     '''
 
     # Creating an empty grid ----------------------- #
