@@ -1,0 +1,23 @@
+[project]
+name = "klslndgrn-public"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+[tool.ruff]
+# Match your workspace ruler (PEP 8)
+line-length = 79
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/W = pycodestyle (Flake8)
+# F = Pyflakes
+# I = isort (Import sorting)
+# B = flake8-bugbear (Common bugs)
+# UP = pyupgrade (Upgrades syntax to 3.12+)
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = []
+
+[tool.ruff.format]
+# Use double quotes and keep indentation standard
+quote-style = "double"
+indent-style = "space"
